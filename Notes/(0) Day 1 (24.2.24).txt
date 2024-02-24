@@ -1,0 +1,9 @@
+Day 1 Notes:
+-9:00: Started creation of the Trello board.
+-9:45: Trello board finished. Adding it to the report and writing about two of the flow charts and this board.
+-10:15: Started Trello task "Setup libGDX Project".
+	>Set window resolution to 1280x720.
+	>Set Vsync to true.
+	>Set resizeable to false.
+	>Chose not to add a while loop for now.
+-10:30: Need to get ready for work; will continue this later.
