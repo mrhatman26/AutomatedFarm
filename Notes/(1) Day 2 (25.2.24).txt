@@ -9,3 +9,6 @@ Day 2 Notes:
 	>This is also still in progress due to having no sprite.
 -11:29: Completed Trello task "Create Planter Object".
 	>Ditto for sprite.
+-11:35: Completed Trello task "Create PlanterPath Object".
+	>Ditto for sprites.
+
