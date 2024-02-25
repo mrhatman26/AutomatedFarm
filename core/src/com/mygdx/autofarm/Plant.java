@@ -3,7 +3,7 @@ package com.mygdx.autofarm;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
-public class Plant {
+public class Plant implements disposable{
     private int harvestingTimer, wateringTimer, feedingTimer, dyingTimer;
     private boolean grown, failed;
     private Texture sprite;

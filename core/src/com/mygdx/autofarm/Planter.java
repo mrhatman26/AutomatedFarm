@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
-public class Planter {
+public class Planter implements disposable {
     private int[] position, targetPosition;
     private boolean override;
     private Texture sprite;

@@ -1,5 +1,5 @@
 Day 2 Notes:
--11:00 Starting up again...
+-11:00: Starting up again...
 -11:05: Completed Trello task "Setup Main Class".
 	>The main now has a sprite batch, texture (background) and a camera.
 	>This is still in "In Progress" in Trello as I have not drawn the background sprite as of yet.
@@ -11,4 +11,9 @@ Day 2 Notes:
 	>Ditto for sprite.
 -11:35: Completed Trello task "Create PlanterPath Object".
 	>Ditto for sprites.
+-11:45: Completed Trello task "Create ControlPanel Object".
+	>Ditto for sprites.
+	>Added a file called "Interfaces" with "disposable" inside as I realised all of the class thus
+	far have the dipsose method. It is useless in my opinion, but it is good practice.
+-11:50: Another thing to do. Looks like I won't be back for a good few hours... -_-
 
