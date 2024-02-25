@@ -1,0 +1,10 @@
+Day 2 Notes:
+-11:00 Starting up again...
+-11:05: Completed Trello task "Setup Main Class".
+	>The main now has a sprite batch, texture (background) and a camera.
+	>This is still in "In Progress" in Trello as I have not drawn the background sprite as of yet.
+-11:17: Completed Trello task "Create Plant Object".
+	>I've given the timers better names ending in "ing".
+	>I changed the "Add creator" task to add a creator that takes parameters to set the class' timers.
+	>This is also still in progress due to having no sprite.
+
