@@ -8,4 +8,15 @@ Day 3 Notes:
 -15:40: Finally completed Trello task "Draw Sprites".
 	>Me taking so long to draw these basic shapes should show to you how bad I am at Photoshop.
 	>I am just going too slow in general. (Me dumb)
+-15:45: Oops, I accidentally added files to the git in the wrong folder so now my git comment looks stupid. (It's missing the files that I mention in it...)
+	>Going to take an undeserved break now. This'll never be done at this rate... -_- I'm a dumbass.
+-16:30: Started drawing the background sprite.
+-17:00: Dinner time. Background sprite looks meh.
+-19:20: Back to it. I had a long conversation about steaks and good steak restaurants and now I'm hungry again. Mmmm, steak. :P
+-19:44: Finally finished the background sprite. It'd have been done a lot quicker if PhotoShop had better grid options, but that's no excuse so whatever.
+-19:57: All classes are now created fully with their sprites. End for today. Not that I did much.
+	>"Create ControlPanel" is still not finished, but is under a new column on Trello which is for cards that cannot be completed due to missing something.
+	>I changed the colour of both the PlanterPath sprites to be white as I made the background colour black for some reason.
+	>I suck at everything.
+	>I have moved the review progress card into To Do. I will be doing that to start with tomorrow.
 

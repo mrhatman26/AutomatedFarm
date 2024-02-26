@@ -14,7 +14,7 @@ public class Plant implements disposable{
         this.dyingTimer = dyingTimer;
         this.grown = false;
         this.failed = false;
-        this.sprite = staticMethods.spriteTest(Gdx.files.internal("badlogic.jpg")); //Todo: Replace badlogic.jpg with the background.
+        this.sprite = staticMethods.spriteTest(Gdx.files.internal("sprPlant.png")); //Todo: Replace badlogic.jpg with the background.
     }
 
     public void dispose(){

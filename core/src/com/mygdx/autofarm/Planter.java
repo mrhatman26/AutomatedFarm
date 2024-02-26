@@ -11,7 +11,7 @@ public class Planter implements disposable {
     public Planter(int[] position){
         this.position = position;
         this.targetPosition = new int[2];
-        this.sprite = staticMethods.spriteTest(Gdx.files.internal("badlogic.jpg")); //Todo: Replace badlogic.jpg with the background.
+        this.sprite = staticMethods.spriteTest(Gdx.files.internal("sprPlanter.png")); //Todo: Replace badlogic.jpg with the background.
     }
 
     public void dispose(){

@@ -15,7 +15,7 @@ public class AutoFarm extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		background = staticMethods.spriteTest(Gdx.files.internal("sprPlanter.png"));
+		background = staticMethods.spriteTest(Gdx.files.internal("sprBackground.png"));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
