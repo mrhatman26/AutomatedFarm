@@ -1,4 +1,11 @@
 Day 3 Notes:
 -Started backup at 13:32 by starting on the sprites...
 -14:00: Call with private tutor for 1 hour.
+-15:19: Wrote "staticMethods" Java file.
+	>This will contain static methods that have no class associated with them.
+	>The first method is "spriteTest" which I wrote to create sprites without crashing the game when the specified image file does not exist.
+	>Edited all classes including the main to use this method when creating sprites. (GDX calls them Textures by the way)
+-15:40: Finally completed Trello task "Draw Sprites".
+	>Me taking so long to draw these basic shapes should show to you how bad I am at Photoshop.
+	>I am just going too slow in general. (Me dumb)
 
