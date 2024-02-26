@@ -8,7 +8,7 @@ public class PlanterPath implements disposable {
     private Texture sprite;
     public PlanterPath(int[] position){
         this.position = position;
-        this.sprite = new Texture(Gdx.files.internal("badlogic.jpg")); //Todo: Replace badlogic.jpg with the background.
+        this.sprite = staticMethods.spriteTest(Gdx.files.internal("badlogic.jpg")); //Todo: Replace badlogic.jpg with the background.
     }
 
     public void dispose(){

@@ -13,7 +13,7 @@ Day 2 Notes:
 	>Ditto for sprites.
 -11:45: Completed Trello task "Create ControlPanel Object".
 	>Ditto for sprites.
-	>Added a file called "Interfaces" with "disposable" inside as I realised all of the class thus
+	>Added a file called "Interfaces" with "disposable" inside as I realised all of the classes thus
 	far have the dipsose method. It is useless in my opinion, but it is good practice.
 -11:50: Another thing to do. Looks like I won't be back for a good few hours... -_-
 
