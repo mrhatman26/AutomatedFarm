@@ -13,6 +13,7 @@ public class AutoFarm extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private PlantHandler plantHandler;
 	private PlanterManager planterManager;
+	private PlanterPathCreator planterPathCreator;
 
 	@Override
 	public void create () {
@@ -22,6 +23,7 @@ public class AutoFarm extends ApplicationAdapter {
 		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.plantHandler = new PlantHandler();
 		this.planterManager = new PlanterManager();
+		this.planterPathCreator = new PlanterPathCreator();
 	}
 
 	@Override

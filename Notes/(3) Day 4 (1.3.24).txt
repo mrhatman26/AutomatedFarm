@@ -13,4 +13,6 @@ Started at 14:30.
 -15:19: Pushed to the git but it pushed twice? With the same commit message for both pushes? Whaaaaaaa-?
 -15:38: Completed Trello card "Create PlanterHandler object"
 	>Changed the name of the PlanterHandler class to PlanterManager to better distinguish it from the PlantHandler class.
-
+-15:52: Completed Trello card "Create PlanterPathHandler object"
+	>Removed the checklist item that stated to have the handler create all the paths at the start. I will add this later as its own card.
+	>I think it would be a good idea to have the paths be created by using a text file to describe the layout. (Java is verbose when using text files though...)

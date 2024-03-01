@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class PlanterPath implements disposable {
     private int[] position;
     private Texture sprite;
-    public PlanterPath(int[] position){
+    public PlanterPath(int xPos, int yPos){
         this.position = position;
         this.sprite = staticMethods.spriteTest(Gdx.files.internal("PlanterRailHorizontal.png")); //Todo: Replace badlogic.jpg with the background.
     }
