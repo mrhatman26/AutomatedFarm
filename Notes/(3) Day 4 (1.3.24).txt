@@ -16,3 +16,17 @@ Started at 14:30.
 -15:52: Completed Trello card "Create PlanterPathHandler object"
 	>Removed the checklist item that stated to have the handler create all the paths at the start. I will add this later as its own card.
 	>I think it would be a good idea to have the paths be created by using a text file to describe the layout. (Java is verbose when using text files though...)
+-15:56: Going to now review the Trello board and add new cards.
+	>This should have been a daily task you moron!
+-16:04: Board reviewed
+	>Added new cards
+	>To start, I will be coming up with a simple system to create PlanterPaths from text files. 
+	>Then I will actually implement this system into the code with a text file.
+	>Then I will have planters be created along these paths.
+	>Then I will implement movement onto said planters.
+	>And finally, I will have the planters ne able to plant new plants.
+	>After this, I will check all the todo comments I've left in the code and review the Trello board again.
+	>This is a lot to do, wow.
+-16:36: Came up with a way to describe a "path set" in one line with each new line being a new "path set".
+	>Hopefully this will work, but... The first solution that you come up with that seems simple is usually terrible and will not work. I didn't say that, CGP Grey did. Or something like that at least.
+-16:55: Finished setting up the checklists for the new Trello cards. Breaktime!

@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class PlanterPath implements disposable {
     private int[] position;
+    private boolean isRowPath;
+    private boolean isColumnPath;
     private Texture sprite;
     public PlanterPath(int xPos, int yPos){
         this.position = position;
