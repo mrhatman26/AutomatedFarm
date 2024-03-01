@@ -7,6 +7,7 @@ public class Plant implements disposable{
     private int harvestingTimer, wateringTimer, feedingTimer, dyingTimer;
     private boolean grown, failed;
     private Texture sprite;
+    private PlantHandler plantHandler;
     public Plant(int harvestingTimer, int wateringTimer, int feedingTimer, int dyingTimer){
         this.harvestingTimer = harvestingTimer;
         this.wateringTimer = wateringTimer;
@@ -15,6 +16,7 @@ public class Plant implements disposable{
         this.grown = false;
         this.failed = false;
         this.sprite = staticMethods.spriteTest(Gdx.files.internal("sprPlant.png")); //Todo: Replace badlogic.jpg with the background.
+        this.plantHandler = new PlantHandler();
     }
 
     public void dispose(){
