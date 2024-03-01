@@ -9,6 +9,7 @@ public class PlantHandler implements disposable{
     }
 
     public boolean createNewPlant(){
+        //Todo: Have the new plant's position be set in the creator. This doesn't say where the plant should be!
         try {
             plants.add(new Plant(4000, 2000, 3000, 10000));
             return true;
@@ -40,6 +41,9 @@ public class PlantHandler implements disposable{
     }
 
     public void dispose(){
+        for (int i = 0; i > plants.size; i++){
+            plants.get(i).dispose();
+        }
         plants.clear();
         plants = null;
     }

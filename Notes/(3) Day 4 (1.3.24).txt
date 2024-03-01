@@ -10,4 +10,7 @@ Started at 14:30.
 -15:15: Completed Trello card "Create PlantHandler object"
 	>Decided to make the methods return true or false where false is returned if an error occurred.
 	>I cannot code for the life of me; seriously.
+-15:19: Pushed to the git but it pushed twice? With the same commit message for both pushes? Whaaaaaaa-?
+-15:38: Completed Trello card "Create PlanterHandler object"
+	>Changed the name of the PlanterHandler class to PlanterManager to better distinguish it from the PlantHandler class.
 
