@@ -1,0 +1,13 @@
+Day 4 Notes:
+Never got to continue the other day. I have a lot of catching up to do... -_-
+Started at 14:30.
+-14:45: Modified three cards on the Trello board to now have checklists.
+	>Those cards are:
+		>>"Create PlantHandler object"
+		>>"Create PlanterHandler object"
+		>>"Create PlanterPathCreator object"
+		>>I'm sure this won't get confusing...
+-15:15: Completed Trello card "Create PlantHandler object"
+	>Decided to make the methods return true or false where false is returned if an error occurred.
+	>I cannot code for the life of me; seriously.
+
