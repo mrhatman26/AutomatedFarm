@@ -12,10 +12,10 @@ public class PlanterPath implements disposable {
     private boolean isRowPath;
     private boolean isColumnPath;
     private Texture sprite;
-    private Rectangle pathRect;
+    public Rectangle pathRect;
     public PlanterPath(int xPos, int yPos, int pathNo){
         this.position = position;
-        this.sprite = staticMethods.spriteTest(Gdx.files.internal("PlanterRailHorizontal.png"));
+        this.sprite = staticMethods.spriteTest(Gdx.files.internal("PlanterRail.png"));
         this.pathRect = new Rectangle();
         this.pathRect.x = xPos;
         this.pathRect.y = yPos;

@@ -17,5 +17,9 @@ Anyway:
 	>This does not include rows and columns as of yet, just the outline.
 	>It doesn't work correctly yet. I think I need to flip my Y coordinates.
 	>Why does libGDX have to flip the Y unlike every other game library? -_-
-
-
+-15:33: Okay, the problem is not the Y being swapped...
+	>The problem is that I was not taking the path's sprite size into accout... -_-
+-16:40: After far too long, I finally got the code to create the described shape.
+	>Now to have it add the rows and columns as well...
+	>I also need to seperate the paths a bit.
+	>But for now, I'm taking a break. I WILL BE BACK. I'm not messing around anymore.
