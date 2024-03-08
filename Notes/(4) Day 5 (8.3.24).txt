@@ -8,4 +8,9 @@ Anyway:
 	>Fixed a bunch of for loops in multiple classes by swapping the greater than symbol with a less than symbol.
 	>Created a new class called "PathTranslator.java"
 	>Made it so PlanterPaths have rectangles and are drawn by the main class.
+-14:38: Wrote the code for the method "readPaths" in the PathTranslator class.
+	>I decided to replace the String[] with a regular String as I can do the following:
+		>>"path+path+path+path+etc"
+	>Using a String[] would require two while loops. One while loop is already really bad in my opinion.
+	>Now to have the code read the paths and create them... :|
 
