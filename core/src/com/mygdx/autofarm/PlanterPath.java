@@ -8,16 +8,18 @@ import java.awt.*;
 
 public class PlanterPath implements disposable {
     private int[] position;
+    private int pathNo;
     private boolean isRowPath;
     private boolean isColumnPath;
     private Texture sprite;
     private Rectangle pathRect;
-    public PlanterPath(int xPos, int yPos){
+    public PlanterPath(int xPos, int yPos, int pathNo){
         this.position = position;
         this.sprite = staticMethods.spriteTest(Gdx.files.internal("PlanterRailHorizontal.png"));
         this.pathRect = new Rectangle();
         this.pathRect.x = xPos;
         this.pathRect.y = yPos;
+        this.pathNo = pathNo;
     }
 
     public void update(Batch spriteBatch){

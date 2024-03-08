@@ -13,4 +13,9 @@ Anyway:
 		>>"path+path+path+path+etc"
 	>Using a String[] would require two while loops. One while loop is already really bad in my opinion.
 	>Now to have the code read the paths and create them... :|
+-15:22: Got the code to read the path descriptions and create them.
+	>This does not include rows and columns as of yet, just the outline.
+	>It doesn't work correctly yet. I think I need to flip my Y coordinates.
+	>Why does libGDX have to flip the Y unlike every other game library? -_-
+
 

@@ -3,23 +3,15 @@ package com.mygdx.autofarm;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 
+import java.nio.file.Path;
+
 public class PlanterPathCreator {
     private Array<PlanterPath> planterPaths;
     PlanterPathCreator(){
         this.planterPaths = new Array<PlanterPath>();
-        //Todo: Create all paths here. Idea: Have the paths be described in a text file or something like that?
-    }
-
-    public boolean createNewPath(int xPos, int yPos){
-        try{
-            planterPaths.add(new PlanterPath(xPos, yPos));
-            return true;
-        }
-        catch (Exception error){
-            System.out.println("(PlanterPathCreator.java): An error occurred when trying to create a new instance of the PlanterPath class");
-            error.printStackTrace();
-            return false;
-        }
+        PathTranslator.readPaths();
+        PathTranslator.translatePaths();
+        planterPaths = PathTranslator.getPlanterPaths();
     }
 
     public Array<PlanterPath> getAllPlanterPaths(){
