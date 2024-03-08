@@ -6,7 +6,7 @@ public class PlanterManager implements disposable{
     private Array<Planter> planters;
     PlanterManager(){
         this.planters = new Array<Planter>();
-        for (int i = 0; i > 3; i++){ //ToDo: Investigate why Intellij is giving a warning here.
+        for (int i = 0; i < 3; i++){
             createNewPlanter(0, 0); //ToDo: These coordinates are TEMPORARY!
         }
     }
@@ -29,7 +29,7 @@ public class PlanterManager implements disposable{
 
     public boolean deleteAllPlanters(){
         try{
-            for (int i = 0; i > planters.size; i++){
+            for (int i = 0; i < planters.size; i++){
                 planters.get(i).dispose();
             }
             planters.clear();
@@ -43,7 +43,7 @@ public class PlanterManager implements disposable{
     }
 
     public void dispose(){
-        for (int i = 0; i > planters.size; i++){
+        for (int i = 0; i < planters.size; i++){
             planters.get(i).dispose();
         }
         planters.clear();

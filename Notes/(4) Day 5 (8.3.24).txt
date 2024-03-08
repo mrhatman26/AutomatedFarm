@@ -1,0 +1,11 @@
+Day 5 Notes:
+Unable to work the past WEEK (╯°□°)╯︵ ┻━┻ due to having a really bad cold. I've got a lot to cath up on... Damnit...
+Anyway, I started at 12:30, but was unable to do anything due to Trello not accepting my email for some reason. For
+HALF AN HOUR?!
+Then I had something else to do so I've only really started at 13:57...
+Anyway:
+-14:22: A bunch of small changes.
+	>Fixed a bunch of for loops in multiple classes by swapping the greater than symbol with a less than symbol.
+	>Created a new class called "PathTranslator.java"
+	>Made it so PlanterPaths have rectangles and are drawn by the main class.
+

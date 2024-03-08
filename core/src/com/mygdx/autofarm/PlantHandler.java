@@ -27,7 +27,7 @@ public class PlantHandler implements disposable{
 
     public boolean deleteAllPlants(){
         try{
-            for (int i = 0; i > plants.size; i++){
+            for (int i = 0; i < plants.size; i++){
                 plants.get(i).dispose();
             }
             plants.clear();
@@ -41,7 +41,7 @@ public class PlantHandler implements disposable{
     }
 
     public void dispose(){
-        for (int i = 0; i > plants.size; i++){
+        for (int i = 0; i < plants.size; i++){
             plants.get(i).dispose();
         }
         plants.clear();

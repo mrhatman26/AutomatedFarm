@@ -1,5 +1,6 @@
 package com.mygdx.autofarm;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 
 public class PlanterPathCreator {
@@ -25,9 +26,15 @@ public class PlanterPathCreator {
         return planterPaths;
     }
 
+    public void updateAllPlanterPaths(Batch spriteBatch){
+        for (int i = 0; i < planterPaths.size; i++){
+            planterPaths.get(i).update(spriteBatch);
+        }
+    }
+
     public boolean deleteAllPlanterPaths(){
         try{
-            for (int i = 0; i > planterPaths.size; i++){
+            for (int i = 0; i < planterPaths.size; i++){
                 planterPaths.get(i).dispose();
             }
             planterPaths.clear();
