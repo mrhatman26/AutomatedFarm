@@ -18,10 +18,7 @@ public class PathTranslator {
     private static int endY = 0;
     private static int height = 0;
     private static int width = 0;
-    private static int rows = 0;
-    private static int columns = 0;
-    private static int rowSpaces = 0;
-    private static int columnSpaces = 0;
+    private static int spacing = 32;
 
     public static boolean readPaths(){
         try{
@@ -37,11 +34,11 @@ public class PathTranslator {
                 }
             }
             pathsFileScanner.close();
-            System.out.println("pathDescList is: " + pathDescList);
+            System.out.println("(PathTranslator: readPaths): pathDescList is: " + pathDescList);
             return true;
         }
         catch (Exception error){
-            System.out.println("(PathTranslator.java): An error occurred when trying to read paths.txt");
+            System.out.println("(PathTranslator: readPaths): An error occurred when trying to read paths.txt");
             error.printStackTrace();
             return false;
         }
@@ -60,23 +57,23 @@ public class PathTranslator {
                 String[] pathDescsItems = pathDescs[i].split(" ");
                 startX = Integer.valueOf(pathDescsItems[0]);
                 startY = Integer.valueOf(pathDescsItems[1]);
-                width = Integer.valueOf(pathDescsItems[2]);
-                height = Integer.valueOf(pathDescsItems[3]);
+                width = staticMethods.closestDivisible(Integer.valueOf(pathDescsItems[2]), 32);
+                height = staticMethods.closestDivisible(Integer.valueOf(pathDescsItems[3]), 32);
                 endX = startX + width;
                 endY = startY + height;
-                System.out.println(startX + " | " + startY + " | " + endX + " | " + endY);
-                //planterPaths.add(new PlanterPath(startX, startY, pathNo)); //Starting path
+                spacing = Integer.valueOf(pathDescsItems[4]);
+                System.out.println("(PathTranslator: translatePaths): " + startX + " | " + startY + " | " + endX + " | " + endY);
                 //ToDo: Separate paths somehow?
-                for (int c = 0; c < width; c++){ //Bottom side
+                for (int c = 0; c < width; c = c + spacing) { //Bottom side
                     planterPaths.add(new PlanterPath(startX + c, startY, pathNo));
                 }
-                for (int c = 0; c < width; c++){ //Top side
+                for (int c = 0; c < width; c = c + spacing) { //Top side
                     planterPaths.add(new PlanterPath(startX + c, endY, pathNo));
                 }
-                for (int c = 0; c < height; c++){ //Left side
+                for (int c = spacing; c < height; c = c + spacing) { //Left side
                     planterPaths.add(new PlanterPath(startX, startY + c, pathNo));
                 }
-                for (int c = 0; c < height; c++){ //Left side
+                for (int c = 0; c < height + spacing; c = c + spacing){ //Right side
                     planterPaths.add(new PlanterPath(endX, startY + c, pathNo));
                 }
             }
