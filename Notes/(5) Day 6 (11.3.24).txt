@@ -10,3 +10,10 @@ Started at 13:50. Will most likely achieve nothing today. As usual... -_-
 	>This is something I actually dislike about programming:
 		>>A lot of the time, you do so much code and yet
 		to others, it looks like you've barely done anything.
+-16:00: Back to it...
+-16:26: The amount of planterPaths for each row and column is now calculated.
+	>Each planterPath now gets its row and column set.
+-17:00: Fixed the rows and columns not being set properly.
+	>Added a variable called debug. When set to true, debug stuff will be drawn.
+	>The only debug stuff as of now is the row and column number of each planterPath.
+	>Unfortunately need to leave this here due to a call :/

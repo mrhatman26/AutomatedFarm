@@ -19,6 +19,8 @@ public class PathTranslator {
     private static int height = 0;
     private static int width = 0;
     private static int spacing = 32;
+    private static int row = 1;
+    private static int column = 1;
 
     public static boolean readPaths(){
         try{
@@ -63,18 +65,30 @@ public class PathTranslator {
                 endY = startY + height;
                 spacing = Integer.valueOf(pathDescsItems[4]);
                 System.out.println("(PathTranslator: translatePaths): " + startX + " | " + startY + " | " + endX + " | " + endY);
-                //ToDo: Separate paths somehow?
+                row = 1;
+                column = 1;
                 for (int c = 0; c < width; c = c + spacing) { //Bottom side
-                    planterPaths.add(new PlanterPath(startX + c, startY, pathNo));
+                    planterPaths.add(new PlanterPath(startX + c, startY, pathNo, column, row));
+                    column++;
                 }
+                column = 1;
+                row = (width + spacing) / 32;
+                System.out.println("(PathTranslator: translatePaths): Amount of rows is: " + row);
                 for (int c = 0; c < width; c = c + spacing) { //Top side
-                    planterPaths.add(new PlanterPath(startX + c, endY, pathNo));
+                    planterPaths.add(new PlanterPath(startX + c, endY, pathNo, column, row));
+                    column++;
                 }
+                column = 1;
+                row = 2;
                 for (int c = spacing; c < height; c = c + spacing) { //Left side
-                    planterPaths.add(new PlanterPath(startX, startY + c, pathNo));
+                    planterPaths.add(new PlanterPath(startX, startY + c, pathNo, column, row));
+                    row++;
                 }
+                column = row;
+                row = 1;
                 for (int c = 0; c < height + spacing; c = c + spacing){ //Right side
-                    planterPaths.add(new PlanterPath(endX, startY + c, pathNo));
+                    planterPaths.add(new PlanterPath(endX, startY + c, pathNo, column, row));
+                    row++;
                 }
             }
             return true;

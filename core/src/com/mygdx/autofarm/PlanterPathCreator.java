@@ -1,6 +1,7 @@
 package com.mygdx.autofarm;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
 
 import java.nio.file.Path;
@@ -18,9 +19,9 @@ public class PlanterPathCreator {
         return planterPaths;
     }
 
-    public void updateAllPlanterPaths(Batch spriteBatch){
+    public void updateAllPlanterPaths(Batch spriteBatch, BitmapFont font){
         for (int i = 0; i < planterPaths.size; i++){
-            planterPaths.get(i).update(spriteBatch);
+            planterPaths.get(i).update(spriteBatch, font);
         }
     }
 
