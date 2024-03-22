@@ -1,0 +1,8 @@
+Day 7 Notes:
+Had to take a week to do some other work. Now back to this.
+Started at 11AM.
+-12:00: Spent the hour modifying classes to create planters on the path. Still needs work though...
+-13:30: Back to it.
+-14:00: Finished trello card "Have Planters be created on the paths".
+	>A lot has been added to classess associated with the planters and planterPaths.
+
