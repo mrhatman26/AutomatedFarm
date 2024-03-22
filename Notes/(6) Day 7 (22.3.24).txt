@@ -15,3 +15,6 @@ Started at 11AM.
 	>I also shrunk the plant and planter sprites by half. The plants are now the same size
 	as planterPaths and the planters are the same size plants used to be.
 	(Plants are now 16x16 and planters are 32x32)
+-16:44: Fixed planterPaths having the wrong rows and columns.
+	>Somehow, I got the rows and columns the wrong way round.
+	>Why is it so easy to do that?

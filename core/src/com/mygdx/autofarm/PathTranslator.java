@@ -85,9 +85,9 @@ public class PathTranslator {
                         pathNo++;
                     }
                     column = 1;
-                    row = (width + spacing) / 32;
-                    columnCount = row; //I'm not even sure how this switchup happened?
-                    rowCount = (height + spacing) / 32;
+                    row = (height + spacing) / 32;
+                    rowCount = row;
+                    columnCount = (width + spacing) / 32;
                     System.out.println("(PathTranslator:translatePaths): Amount of rows is: " + rowCount);
                     System.out.println("(PathTranslator:translatePaths): Amount of columns is: " + columnCount);
                     for (int c = 0; c < width; c = c + spacing) { //Top side
@@ -102,7 +102,7 @@ public class PathTranslator {
                         row++;
                         pathNo++;
                     }
-                    column = row;
+                    column = columnCount;//row;
                     row = 1;
                     for (int c = 0; c < height + spacing; c = c + spacing) { //Right side
                         planterPaths.add(new PlanterPath(endX, startY + c, pathGroupNo, column, row, pathNo));
