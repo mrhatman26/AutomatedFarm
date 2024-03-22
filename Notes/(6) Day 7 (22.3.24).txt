@@ -10,3 +10,8 @@ Started at 11AM.
 	>Changed some other code to throw exceptions when they should. (added the throw command essentially)
 	>Started to make the actual paths that will be used rather than the ones I've been using.
 	>The old paths are in oldPaths.txt
+-16:00: Back to it!
+-16:30: Finished writing all four paths. Technically, my code allows for more, but I'll keep it to 4.
+	>I also shrunk the plant and planter sprites by half. The plants are now the same size
+	as planterPaths and the planters are the same size plants used to be.
+	(Plants are now 16x16 and planters are 32x32)
