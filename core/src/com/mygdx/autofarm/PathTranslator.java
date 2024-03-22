@@ -11,6 +11,7 @@ public class PathTranslator {
     private static File pathsFile;
     private static Scanner pathsFileScanner;
     private static Array<PlanterPath> planterPaths;
+    private static int pathGroupNo = 0;
     private static int pathNo = 0;
     private static int startX = 0;
     private static int startY = 0;
@@ -21,13 +22,16 @@ public class PathTranslator {
     private static int spacing = 32;
     private static int row = 1;
     private static int column = 1;
+    private static int lineCount = 0;
 
     public static boolean readPaths(){
         try{
             pathsFile = Gdx.files.internal("paths.txt").file();
             pathsFileScanner = new Scanner(pathsFile);
             pathDescList = "";
+            lineCount = 0;
             while (pathsFileScanner.hasNextLine()){
+                lineCount++;
                 if (pathDescList.equals("")){
                     pathDescList = pathsFileScanner.nextLine();
                 }
@@ -53,14 +57,15 @@ public class PathTranslator {
     public static boolean translatePaths(){
         try {
             planterPaths = new Array<PlanterPath>();
-            pathNo = 0;
+            pathGroupNo = 0;
             String[] pathDescs = pathDescList.split("\\+");
             for (int i = 0; i < pathDescs.length; i++) {
+                pathNo = 0;
                 String[] pathDescsItems = pathDescs[i].split(" ");
                 startX = Integer.valueOf(pathDescsItems[0]);
                 startY = Integer.valueOf(pathDescsItems[1]);
-                width = staticMethods.closestDivisible(Integer.valueOf(pathDescsItems[2]), 32);
-                height = staticMethods.closestDivisible(Integer.valueOf(pathDescsItems[3]), 32);
+                width = staticMethods.closestDivisible(Integer.valueOf(pathDescsItems[2]), spacing);
+                height = staticMethods.closestDivisible(Integer.valueOf(pathDescsItems[3]), spacing);
                 endX = startX + width;
                 endY = startY + height;
                 spacing = Integer.valueOf(pathDescsItems[4]);
@@ -68,28 +73,33 @@ public class PathTranslator {
                 row = 1;
                 column = 1;
                 for (int c = 0; c < width; c = c + spacing) { //Bottom side
-                    planterPaths.add(new PlanterPath(startX + c, startY, pathNo, column, row));
+                    planterPaths.add(new PlanterPath(startX + c, startY, pathGroupNo, column, row, pathNo));
                     column++;
+                    pathNo++;
                 }
                 column = 1;
                 row = (width + spacing) / 32;
                 System.out.println("(PathTranslator: translatePaths): Amount of rows is: " + row);
                 for (int c = 0; c < width; c = c + spacing) { //Top side
-                    planterPaths.add(new PlanterPath(startX + c, endY, pathNo, column, row));
+                    planterPaths.add(new PlanterPath(startX + c, endY, pathGroupNo, column, row, pathNo));
                     column++;
+                    pathNo++;
                 }
                 column = 1;
                 row = 2;
                 for (int c = spacing; c < height; c = c + spacing) { //Left side
-                    planterPaths.add(new PlanterPath(startX, startY + c, pathNo, column, row));
+                    planterPaths.add(new PlanterPath(startX, startY + c, pathGroupNo, column, row, pathNo));
                     row++;
+                    pathNo++;
                 }
                 column = row;
                 row = 1;
                 for (int c = 0; c < height + spacing; c = c + spacing){ //Right side
-                    planterPaths.add(new PlanterPath(endX, startY + c, pathNo, column, row));
+                    planterPaths.add(new PlanterPath(endX, startY + c, pathGroupNo, column, row, pathNo));
                     row++;
+                    pathNo++;
                 }
+                pathGroupNo++;
             }
             return true;
         }

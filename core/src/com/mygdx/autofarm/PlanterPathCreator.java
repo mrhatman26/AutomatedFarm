@@ -12,17 +12,30 @@ public class PlanterPathCreator {
         this.planterPaths = new Array<PlanterPath>();
         PathTranslator.readPaths();
         PathTranslator.translatePaths();
-        planterPaths = PathTranslator.getPlanterPaths();
+        this.planterPaths = PathTranslator.getPlanterPaths();
     }
 
     public Array<PlanterPath> getAllPlanterPaths(){
         return planterPaths;
     }
 
+    public int getPlanterPathsArraySize(){
+        return planterPaths.size;
+    }
+
     public void updateAllPlanterPaths(Batch spriteBatch, BitmapFont font){
         for (int i = 0; i < planterPaths.size; i++){
             planterPaths.get(i).update(spriteBatch, font);
         }
+    }
+
+    public PlanterPath getFirstPath(int pathGroupNo){
+        for (int i = 0; i < planterPaths.size; i++){
+            if (planterPaths.get(i).getPathNo() == 0 && planterPaths.get(i).getPathGroupNo() == pathGroupNo){
+                return planterPaths.get(i);
+            }
+        }
+        return null;
     }
 
     public boolean deleteAllPlanterPaths(){

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class AutoFarm extends ApplicationAdapter {
-	public static boolean debug = false;
+	public static boolean debug = true;
 	private SpriteBatch batch;
 	private Texture background;
 	private OrthographicCamera camera;
@@ -25,8 +25,8 @@ public class AutoFarm extends ApplicationAdapter {
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.plantHandler = new PlantHandler();
-		this.planterManager = new PlanterManager();
 		this.planterPathCreator = new PlanterPathCreator();
+		this.planterManager = new PlanterManager(planterPathCreator);
 		font = new BitmapFont();
 	}
 
@@ -36,6 +36,7 @@ public class AutoFarm extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(background, 0, 0);
 		planterPathCreator.updateAllPlanterPaths(batch, font);
+		planterManager.updateAllPlanters(batch);
 		batch.end();
 		camera.update();
 	}

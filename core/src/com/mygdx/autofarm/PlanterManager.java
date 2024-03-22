@@ -1,19 +1,26 @@
 package com.mygdx.autofarm;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 
 public class PlanterManager implements disposable{
     private Array<Planter> planters;
-    PlanterManager(){
+    PlanterManager(PlanterPathCreator planterPathCreator){
         this.planters = new Array<Planter>();
-        for (int i = 0; i < 3; i++){
-            createNewPlanter(0, 0); //ToDo: These coordinates are TEMPORARY!
+        int pathGroupNo = 0;
+        for (int i = 0; i < planterPathCreator.getPlanterPathsArraySize(); i++){
+            System.out.println(i);
+            PlanterPath tempPath = planterPathCreator.getFirstPath(i);
+            if (tempPath != null) {
+                createNewPlanter(tempPath.getX(true) - 32, tempPath.getY(true) - 32, tempPath.getCPos(), tempPath.getRPos()); //ToDo: These coordinates are TEMPORARY!
+                pathGroupNo++;
+            }
         }
     }
 
-    public boolean createNewPlanter(int xPos, int yPos){
+    public boolean createNewPlanter(int xPos, int yPos, int cPos, int rPos){
         try {
-            planters.add(new Planter(xPos, yPos));
+            planters.add(new Planter(xPos, yPos, cPos, rPos));
             return true;
         }
         catch (Exception error){
@@ -39,6 +46,12 @@ public class PlanterManager implements disposable{
             System.out.println("(PlanterManager.java): An error occurred when trying to delete all instances of the Planter class");
             error.printStackTrace();
             return false;
+        }
+    }
+
+    public void updateAllPlanters(Batch spriteBatch){
+        for (int i = 0; i < planters.size; i++){
+            planters.get(i).update(spriteBatch);
         }
     }
 
