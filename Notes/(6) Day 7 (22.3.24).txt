@@ -5,4 +5,8 @@ Started at 11AM.
 -13:30: Back to it.
 -14:00: Finished trello card "Have Planters be created on the paths".
 	>A lot has been added to classess associated with the planters and planterPaths.
-
+-15:00: Break time!
+	>Started the code to allow planters to move.
+	>Changed some other code to throw exceptions when they should. (added the throw command essentially)
+	>Started to make the actual paths that will be used rather than the ones I've been using.
+	>The old paths are in oldPaths.txt
