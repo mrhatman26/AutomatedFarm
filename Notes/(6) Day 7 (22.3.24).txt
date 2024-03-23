@@ -18,3 +18,5 @@ Started at 11AM.
 -16:44: Fixed planterPaths having the wrong rows and columns.
 	>Somehow, I got the rows and columns the wrong way round.
 	>Why is it so easy to do that?
+-17:00: Pizzaa time!
+	>I've done so much coding today, but I've barely done anything... Wooo.

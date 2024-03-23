@@ -10,9 +10,10 @@ import java.awt.*;
 public class Planter implements disposable {
     private Rectangle planterRect;
     private int[] position, targetPosition;
-    private boolean override;
+    private int pathGroupNo;
+    private boolean override, movingToTarget;
     private Texture sprite;
-    public Planter(int xPos, int yPos, int cPos, int rPos){
+    public Planter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo){
         this.position = new int[2];
         this.position[0] = cPos;
         this.position[1] = rPos;
@@ -23,17 +24,19 @@ public class Planter implements disposable {
         this.planterRect.y = yPos;
         this.planterRect.width = 64;
         this.planterRect.height = 64;
+        this.pathGroupNo = pathGroupNo;
+        this.movingToTarget = false;
     }
 
-    public void setTargetPosition(int[] newTargetPos, boolean moveToNewTarget){
+    public void setTargetPosition(int[] newTargetPos, boolean startMoving){
         try {
             if (newTargetPos.length != 2) {
                 throw new Exception("newTargetPos is in incorrect format. Must be two numbers!");
             }
             else{
                 this.targetPosition = newTargetPos;
-                if (moveToNewTarget){
-                    //ToDO
+                if (startMoving){
+                    this.movingToTarget = true;
                 }
             }
         }
@@ -43,23 +46,45 @@ public class Planter implements disposable {
         }
     }
 
-    /*public boolean moveToTarget(boolean teleport){
+    public void setPosition(int[] newPos){
+        this.position[0] = newPos[0];
+        this.position[1] = newPos[1];
+    }
+
+    public void setMovingToTarget(boolean newBool){
+        this.movingToTarget = newBool;
+    }
+
+    public boolean moveToTarget(boolean teleport, PlanterPathCreator planterPathCreator){
+        if (!movingToTarget){
+            movingToTarget = true;
+        }
         try{
             //position[0] = Columns and position[1] = Rows. Same for targetPosition.
             if (position[1] != targetPosition[1]) {//Is the target on the same row as the planter?
-                eeee
+                if (staticMethods.closestNumber(position[0], planterPathCreator.getFirstColumnPath(pathGroupNo, position[1]).getCPos(), planterPathCreator.getLastColumnPath(pathGroupNo, position[1]).getCPos())){
+                    PlanterPath tempPath = planterPathCreator.getClosestColumnPath(pathGroupNo, true, position[1], position[0]);
+                    setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
+                    planterRect.x = tempPath.getX(true) - 16;
+                    planterRect.y = tempPath.getY(true) - 16;
+                }
             }
-            if (position[0] != targetPosition[0]) {//Is the target on the same column as the planter?
+            /*if (position[0] != targetPosition[0]) {//Is the target on the same column as the planter?
                 this.position = this.targetPosition;//<-----Temp!!!!
-            }
+            }*/
+            return true;
         }
         catch (Exception error){
             System.out.println("(Planter:moveToTarget): There was an error when attempting to move to the target position");
             error.printStackTrace();
+            return false;
         }
-    }*/
+    }
 
-    public void update(Batch spriteBatch){
+    public void update(Batch spriteBatch, PlanterPathCreator planterPathCreator){
+        if (movingToTarget){
+            moveToTarget(false, planterPathCreator);
+        }
         spriteBatch.draw(sprite, planterRect.x, planterRect.y);
     }
 

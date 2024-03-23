@@ -8,11 +8,14 @@ import java.nio.file.Path;
 
 public class PlanterPathCreator {
     private Array<PlanterPath> planterPaths;
+    private int columnSize, rowSize;
     PlanterPathCreator(){
         this.planterPaths = new Array<PlanterPath>();
         PathTranslator.readPaths();
         PathTranslator.translatePaths();
         this.planterPaths = PathTranslator.getPlanterPaths();
+        this.columnSize = PathTranslator.getColumnCount();
+        this.rowSize = PathTranslator.getRowCount();
     }
 
     public Array<PlanterPath> getAllPlanterPaths(){
@@ -30,12 +33,58 @@ public class PlanterPathCreator {
     }
 
     public PlanterPath getFirstPath(int pathGroupNo){
+        PlanterPath tempPath;
         for (int i = 0; i < planterPaths.size; i++){
-            if (planterPaths.get(i).getPathNo() == 0 && planterPaths.get(i).getPathGroupNo() == pathGroupNo){
-                return planterPaths.get(i);
+            tempPath = planterPaths.get(i);
+            if (tempPath.getPathNo() == 0 && tempPath.getPathGroupNo() == pathGroupNo){
+                return tempPath;
             }
         }
         return null;
+    }
+
+    public PlanterPath getFirstColumnPath(int pathGroupNo, int row){
+        PlanterPath tempPath;
+        for (int i = 0; i < planterPaths.size; i++){
+            tempPath = planterPaths.get(i);
+            if (tempPath.getPathGroupNo() == pathGroupNo && tempPath.getRPos() == row && tempPath.getCPos() == 1){
+                return tempPath;
+            }
+        }
+        return null;
+    }
+
+    public PlanterPath getLastColumnPath(int pathGroupNo, int row) {
+        PlanterPath tempPath;
+        for (int i = 0; i < planterPaths.size; i++){
+            tempPath = planterPaths.get(i);
+            if (tempPath.getPathGroupNo() == pathGroupNo && tempPath.getRPos() == row && tempPath.getCPos() == columnSize){
+                return tempPath;
+            }
+        }
+        return null;
+    }
+
+    public PlanterPath getClosestColumnPath(int pathGroup, boolean directionLeft, int row, int column){
+        PlanterPath tempPath;
+        if (directionLeft){
+            for (int i = 0; i < planterPaths.size; i++){
+                tempPath = planterPaths.get(i);
+                if (tempPath.getPathGroupNo() == pathGroup && tempPath.getRPos() == row && tempPath.getCPos() == column - 1){
+                    return tempPath;
+                }
+            }
+            return null;
+        }
+        else{
+            for (int i = 0; i < planterPaths.size; i++){
+                tempPath = planterPaths.get(i);
+                if (tempPath.getPathGroupNo() == pathGroup && tempPath.getRPos() == row && tempPath.getCPos() == column + 1){
+                    return tempPath;
+                }
+            }
+            return null;
+        }
     }
 
     public boolean deleteAllPlanterPaths(){

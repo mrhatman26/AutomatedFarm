@@ -56,6 +56,14 @@ public class PathTranslator {
         return planterPaths;
     }
 
+    public static int getColumnCount(){
+        return columnCount;
+    }
+
+    public static int getRowCount(){
+        return rowCount;
+    }
+
     public static boolean translatePaths(){
         try {
             planterPaths = new Array<PlanterPath>();
