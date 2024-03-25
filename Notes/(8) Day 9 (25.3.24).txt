@@ -1,0 +1,4 @@
+Day 9 notes:
+Started at 10am.
+-10:30: Planters can now move on columns to their target, but not on rows.
+	>At least, I think they can?

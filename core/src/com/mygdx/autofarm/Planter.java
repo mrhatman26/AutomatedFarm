@@ -11,7 +11,7 @@ public class Planter implements disposable {
     private Rectangle planterRect;
     private int[] position, targetPosition;
     private int pathGroupNo;
-    private boolean override, movingToTarget;
+    private boolean override, movingToTarget, movingRow, movingColumn;
     private Texture sprite;
     public Planter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo){
         this.position = new int[2];
@@ -26,6 +26,8 @@ public class Planter implements disposable {
         this.planterRect.height = 64;
         this.pathGroupNo = pathGroupNo;
         this.movingToTarget = false;
+        this.movingRow = false;
+        this.movingColumn = false;
     }
 
     public void setTargetPosition(int[] newTargetPos, boolean startMoving){
@@ -62,12 +64,26 @@ public class Planter implements disposable {
         try{
             //position[0] = Columns and position[1] = Rows. Same for targetPosition.
             if (position[1] != targetPosition[1]) {//Is the target on the same row as the planter?
-                if (staticMethods.closestNumber(position[0], planterPathCreator.getFirstColumnPath(pathGroupNo, position[1]).getCPos(), planterPathCreator.getLastColumnPath(pathGroupNo, position[1]).getCPos())){
-                    PlanterPath tempPath = planterPathCreator.getClosestColumnPath(pathGroupNo, true, position[1], position[0]);
+                movingColumn = true;
+                movingRow = false;
+                boolean moveDirection = staticMethods.closestNumber(position[0], planterPathCreator.getFirstColumnPath(pathGroupNo, position[1]).getCPos(), planterPathCreator.getLastColumnPath(pathGroupNo, position[1]).getCPos());
+                PlanterPath tempPath = planterPathCreator.getClosestColumnPath(pathGroupNo, true, position[1], position[0]);
+                if (tempPath != null) {
                     setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
-                    planterRect.x = tempPath.getX(true) - 16;
-                    planterRect.y = tempPath.getY(true) - 16;
+                    if (moveDirection) {
+                        planterRect.x = tempPath.getX(true) - 16;
+                        planterRect.y = tempPath.getY(true) - 16;
+                    }
+                    else{
+                        planterRect.x = tempPath.getX(true) + 16;
+                        planterRect.y = tempPath.getY(true) + 16;
+                    }
                 }
+                else{
+                    movingColumn = false;
+                }
+                //The error (I think) is caused by there being no planterPath to left of the planter. So, line 66 returning null should skip
+                //to moving along rows. You might want to consider two booleans to tell the code which we are looking at. (E.G: movingCol and movingRow)
             }
             /*if (position[0] != targetPosition[0]) {//Is the target on the same column as the planter?
                 this.position = this.targetPosition;//<-----Temp!!!!
