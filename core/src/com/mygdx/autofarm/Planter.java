@@ -118,9 +118,36 @@ public class Planter implements disposable {
                                 setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
                                 planterRect.x = tempPath.getX(true) - 16;
                                 planterRect.y = tempPath.getY(true) - 16;
+                                movingRow = false;
+                                movingColumn = true;
                             }
                         }
                     }
+                }
+                else{
+                    if (position[0] != targetPosition[0]){ //Has the target column been reached?
+                        PlanterPath tempPath;
+                        if (position[0] > targetPosition[0]) {
+                            //Move left
+                            tempPath = planterPathCreator.getPathFromPos(position[1], position[0] - 1, pathGroupNo);
+                        }
+                        else{
+                            //Move right
+                            tempPath = planterPathCreator.getPathFromPos(position[1], position[0] + 1, pathGroupNo);
+                        }
+                        if (tempPath != null) {
+                            setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
+                            planterRect.x = tempPath.getX(true) - 16;
+                            planterRect.y = tempPath.getY(true) - 16;
+                        }
+                    }
+                    else{
+                        movingToTarget = false;
+                        return true;
+                    }
+                    //ToDo: When the row is no on a path that has columns, the planter goes up and then stops on the opposite
+                    //ToDo: side expecting to be able to get left when it can't. Fix THIS!
+                    //ToDo: Check white board for a better explanation of this as a drawing.
                 }
             }
             /*if (position[0] != targetPosition[0]) {//Is the target on the same column as the planter?
@@ -137,7 +164,7 @@ public class Planter implements disposable {
 
     public void update(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font){
         if (movingToTarget){
-            moveToTarget(true, planterPathCreator);
+            moveToTarget(false, planterPathCreator);
         }
         spriteBatch.draw(sprite, planterRect.x, planterRect.y);
         font.draw(spriteBatch, String.valueOf(movingToTarget), planterRect.x, planterRect.y - 32);

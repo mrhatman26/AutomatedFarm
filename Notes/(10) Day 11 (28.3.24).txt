@@ -9,4 +9,19 @@ Started at 10am
 	>That is, the 8th column on row 0. Row 0 doesn't exist -_-
 	>If I faced palmed myself over this, I think I'd knock myself out
 	from my anger propelling my hand so fast. -_-
+11:30: Having lunch and leaving for work.
+	>Got planters to move along columns and up rows!
+	>Now I need to make it so that planters can come back along rows
+	once they've reached their target row.
+	>Something worked for once. ^_^
+	>Won't keep working, that's for sure.
+19:52: Back to it!
+20:30: Planters can now move back along rows.
+	>However, if the target is on a row with no columns
+	AND the planter is closer to the opposite side of the target,
+	the planter will go up the opposite side's rows and then stop
+	at the target row expecting to be able to go along the columns
+	when it can't and so it freezes. Need to fix this and then I can
+	move on to other stuff I think.
+
 		
