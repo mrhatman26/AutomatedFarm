@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class PathTranslator {
     private static String pathDescList;
+    private static String colAndRowCounts = "";
     private static File pathsFile;
     private static Scanner pathsFileScanner;
     private static Array<PlanterPath> planterPaths;
@@ -72,7 +73,6 @@ public class PathTranslator {
             for (int i = 0; i < pathDescs.length; i++) {
                 pathNo = 0;
                 String[] pathDescsItems = pathDescs[i].split(" ");
-                System.out.println("pathDescsItems has " + String.valueOf(pathDescsItems.length) + " numbers, it should have 5!");
                 if (pathDescsItems.length != 5){
                     throw new Exception("pathDescsItems has " + String.valueOf(pathDescsItems.length) + " numbers, it should have 5!");
                 }
@@ -96,6 +96,12 @@ public class PathTranslator {
                     row = (height + spacing) / 32;
                     rowCount = row;
                     columnCount = (width + spacing) / 32;
+                    if (colAndRowCounts.equals("")) {
+                        colAndRowCounts = columnCount + " | " + rowCount;
+                    }
+                    else{
+                        colAndRowCounts = columnCount + " | " + rowCount;
+                    }
                     System.out.println("(PathTranslator:translatePaths): Amount of rows is: " + rowCount);
                     System.out.println("(PathTranslator:translatePaths): Amount of columns is: " + columnCount);
                     for (int c = 0; c < width; c = c + spacing) { //Top side

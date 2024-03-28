@@ -1,7 +1,10 @@
 package com.mygdx.autofarm;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
+
+import java.awt.*;
 
 public class PlanterManager implements disposable{
     private Array<Planter> planters;
@@ -11,6 +14,7 @@ public class PlanterManager implements disposable{
         for (int i = 0; i < planterPathCreator.getPlanterPathsArraySize(); i++){
             PlanterPath tempPath = planterPathCreator.getFirstPath(i);
             if (tempPath != null) {
+                System.out.println("(PlanterManager:Initialiser): " + tempPath.getCPos() + " | "  + tempPath.getRPos() + " | " + pathGroupNo);
                 createNewPlanter(tempPath.getX(true) - 16, tempPath.getY(true) - 16, tempPath.getCPos(), tempPath.getRPos(), pathGroupNo); //ToDo: These coordinates are TEMPORARY!
                 pathGroupNo++;
             }
@@ -56,9 +60,9 @@ public class PlanterManager implements disposable{
         planters.get(planterID).setMovingToTarget(startMoving);
     }
 
-    public void updateAllPlanters(Batch spriteBatch, PlanterPathCreator planterPathCreator){
+    public void updateAllPlanters(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font){
         for (int i = 0; i < planters.size; i++){
-            planters.get(i).update(spriteBatch, planterPathCreator);
+            planters.get(i).update(spriteBatch, planterPathCreator, font);
         }
     }
 

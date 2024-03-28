@@ -1,0 +1,5 @@
+Notes for day 10:
+Started at 15:00
+-16:41: Started work on allowing planters to move up along rows.
+	>Can't focus due to some medication :/
+	>I will not be surprised when I fail this project -_-

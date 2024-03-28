@@ -29,14 +29,14 @@ public class PlanterPath implements disposable {
 
     public void update(Batch spriteBatch, BitmapFont font){
         spriteBatch.draw(sprite, pathRect.x, pathRect.y);
-        if (AutoFarm.debug) {
-            String temp = String.valueOf(position[0]) + "|" + String.valueOf(position[1]);
-            font.draw(spriteBatch, temp, pathRect.x + 32, pathRect.y);
-            temp = String.valueOf(pathGroupNo);
+        /*if (AutoFarm.debug) {
+            //String temp = String.valueOf(position[0]) + "|" + String.valueOf(position[1]);
+            //font.draw(spriteBatch, temp, pathRect.x + 32, pathRect.y);
+            //temp = String.valueOf(pathGroupNo);
             //font.draw(spriteBatch, temp, pathRect.x - 32, pathRect.y);
             //temp = String.valueOf(pathNo);
             //font.draw(spriteBatch, temp, pathRect.x, pathRect.y + 32);
-        }
+        }*/
     }
 
     public int getX(boolean centre){

@@ -1,0 +1,12 @@
+Day 11 Notes:
+Maybe I might get something done today? Haha, what a joke of a statement.
+Started at 10am
+11:05: Spent a long time on nothing... I mea-
+	>I added the teleport functionality to moveToTarget.
+	>I did this to test if my movement code worked.
+	>Took me so long to implement because I had to debug.
+	>The root cause of it not working was because I set the targetPos to 8, 0.
+	>That is, the 8th column on row 0. Row 0 doesn't exist -_-
+	>If I faced palmed myself over this, I think I'd knock myself out
+	from my anger propelling my hand so fast. -_-
+		
