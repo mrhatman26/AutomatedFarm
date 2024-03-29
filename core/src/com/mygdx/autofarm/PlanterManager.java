@@ -13,7 +13,7 @@ public class PlanterManager implements disposable{
         int pathGroupNo = 0;
         for (int i = 0; i < planterPathCreator.getPlanterPathsArraySize(); i++){
             //PlanterPath tempPath = planterPathCreator.getFirstPath(i);
-            PlanterPath tempPath = planterPathCreator.getPathFromPos(1, 6, pathGroupNo);
+            PlanterPath tempPath = planterPathCreator.getPathFromPos(5, 1, pathGroupNo);
             if (tempPath != null) {
                 System.out.println("(PlanterManager:Initialiser): " + tempPath.getCPos() + " | "  + tempPath.getRPos() + " | " + pathGroupNo);
                 createNewPlanter(tempPath.getX(true) - 16, tempPath.getY(true) - 16, tempPath.getCPos(), tempPath.getRPos(), pathGroupNo); //ToDo: These coordinates are TEMPORARY!

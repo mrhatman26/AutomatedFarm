@@ -117,25 +117,43 @@ public class PlanterPathCreator {
         }
     }
 
+    public boolean checkNullColumns(int pathGroupNo, int[] position) { //Unsure what to name this, but if both the left column and the right column return null, then this will return true.
+        System.out.println("Column Path A is: " + String.valueOf(getClosestColumnPath(pathGroupNo, false, position[1], position[0])));
+        System.out.println("Column Path B is: " + String.valueOf(getClosestColumnPath(pathGroupNo, true, position[1], position[0])));
+        System.out.println("Row Path A is: " + String.valueOf(getClosestRowPath(pathGroupNo, true, position[1], position[0])));
+        System.out.println("Row Path B is: " + String.valueOf(getClosestRowPath(pathGroupNo, false, position[1], position[0])));
+        //System.exit(0);
+        if (getClosestColumnPath(pathGroupNo, false, position[1], position[0]) == null && getClosestColumnPath(pathGroupNo, true, position[1], position[0]) == null) { //The target might be on a column row...
+            if (getClosestRowPath(pathGroupNo, true, position[1], position[0]) != null || getClosestRowPath(pathGroupNo, false, position[1], position[0]) != null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
     public PlanterPath getPathFromPos(int row, int column, int pathGroup){
         //if (AutoFarm.debug) {
-        System.out.println("(PlanterPathCreator:getPathFromPos): Target path details:\nRow = " + row + "\nColumn = " + column + "\nPath Group = " + pathGroup);
+        //System.out.println("(PlanterPathCreator:getPathFromPos): Target path details:\nRow = " + row + "\nColumn = " + column + "\nPath Group = " + pathGroup);
         //}
         PlanterPath tempPath;
         for (int i = 0; i < planterPaths.size; i++){
             tempPath = planterPaths.get(i);
             if (AutoFarm.debug) {
-                System.out.println("(PlanterPathCreator:getPathFromPos): Current path details:\nID: " + tempPath.getPathNo() + "\nRow = " + tempPath.getRPos() + "\nColumn = " + tempPath.getCPos() + "\nPath Group = " + tempPath.getPathGroupNo());
-                System.out.println("(PlanterPathCreator:getPathFromPos): Paths checked: " + String.valueOf(i) + "/" + planterPaths.size);
+                //System.out.println("(PlanterPathCreator:getPathFromPos): Current path details:\nID: " + tempPath.getPathNo() + "\nRow = " + tempPath.getRPos() + "\nColumn = " + tempPath.getCPos() + "\nPath Group = " + tempPath.getPathGroupNo());
+                //System.out.println("(PlanterPathCreator:getPathFromPos): Paths checked: " + String.valueOf(i) + "/" + planterPaths.size);
             }
             if (tempPath.getCPos() == column && tempPath.getRPos() == row && tempPath.getPathGroupNo() == pathGroup){
                 if (AutoFarm.debug) {
-                    System.out.println("(PlanterPathCreator:getPathFromPos): Target path found.");
+                    //System.out.println("(PlanterPathCreator:getPathFromPos): Target path found.");
                 }
                 return tempPath;
             }
         }
-        System.out.println("[Warning]: (PlanterPathCreator:getPathFromPos): Target path NOT found.");
+        //System.out.println("[Warning]: (PlanterPathCreator:getPathFromPos): Target path NOT found.");
         return null;
     }
 
@@ -157,7 +175,7 @@ public class PlanterPathCreator {
             return true;
         }
         catch (Exception error){
-            System.out.println("(PlanterPathCreator.java): An error occurred when trying to delete all instances of the PlanterPath class");
+            //System.out.println("(PlanterPathCreator.java): An error occurred when trying to delete all instances of the PlanterPath class");
             error.printStackTrace();
             return false;
         }
