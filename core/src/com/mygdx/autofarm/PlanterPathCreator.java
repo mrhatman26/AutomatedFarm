@@ -26,6 +26,14 @@ public class PlanterPathCreator {
         return planterPaths.size;
     }
 
+    public int getRowSize(){
+        return this.rowSize;
+    }
+
+    public int getColumnSize(){
+        return this.columnSize;
+    }
+
     public void updateAllPlanterPaths(Batch spriteBatch, BitmapFont font){
         for (int i = 0; i < planterPaths.size; i++){
             planterPaths.get(i).update(spriteBatch, font);
@@ -110,14 +118,20 @@ public class PlanterPathCreator {
     }
 
     public PlanterPath getPathFromPos(int row, int column, int pathGroup){
+        //if (AutoFarm.debug) {
         System.out.println("(PlanterPathCreator:getPathFromPos): Target path details:\nRow = " + row + "\nColumn = " + column + "\nPath Group = " + pathGroup);
+        //}
         PlanterPath tempPath;
         for (int i = 0; i < planterPaths.size; i++){
             tempPath = planterPaths.get(i);
-            System.out.println("(PlanterPathCreator:getPathFromPos): Current path details:\nID: " + tempPath.getPathNo() + "\nRow = " + tempPath.getRPos() + "\nColumn = " + tempPath.getCPos() + "\nPath Group = " + tempPath.getPathGroupNo());
-            System.out.println("(PlanterPathCreator:getPathFromPos): Paths checked: " + String.valueOf(i) + "/" + planterPaths.size);
+            if (AutoFarm.debug) {
+                System.out.println("(PlanterPathCreator:getPathFromPos): Current path details:\nID: " + tempPath.getPathNo() + "\nRow = " + tempPath.getRPos() + "\nColumn = " + tempPath.getCPos() + "\nPath Group = " + tempPath.getPathGroupNo());
+                System.out.println("(PlanterPathCreator:getPathFromPos): Paths checked: " + String.valueOf(i) + "/" + planterPaths.size);
+            }
             if (tempPath.getCPos() == column && tempPath.getRPos() == row && tempPath.getPathGroupNo() == pathGroup){
-                System.out.println("(PlanterPathCreator:getPathFromPos): Target path found.");
+                if (AutoFarm.debug) {
+                    System.out.println("(PlanterPathCreator:getPathFromPos): Target path found.");
+                }
                 return tempPath;
             }
         }

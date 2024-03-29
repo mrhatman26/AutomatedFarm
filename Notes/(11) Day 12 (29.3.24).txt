@@ -1,0 +1,24 @@
+Day 11 Notes:
+Started at 13:30.
+-13:42: I've decided to rewrite the movement code.
+	>The current way makes the planters take
+	a longer route sometimes. It also has that bug
+	from yesterday and I can't see a way to fix that
+	in the code's current form.
+-14:11: Fixed it. I didn't need to rewrite it.
+	>Now to test it as much as I can and fix whatever goes wrong.
+-14:19: Found a problem because of course I have.
+	>Planter can move to its targets just fine when it STARTS
+	on rows with columns (AKA, the top and bottom rows), but
+	if it starts on columns with rows (AKA, the left and right columns)
+	then there is an index out of bounds error.
+-14:32: Not sure why the index error happened.
+	>Planters freeze if they are given a target
+	on a column row if they themselves are on one.
+	Need to fix this... 
+-16:08: Damn this took a while...
+	>I think(?) I finally got this pathing to work?
+	>Took a long time to do, but it barely looks like much, as usual.
+	>I am going to record some short videos of this working and turn them into gifs.
+	>I will probably find another bug or more while doing this.
+
