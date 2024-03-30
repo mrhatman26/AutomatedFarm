@@ -3,26 +3,34 @@ package com.mygdx.autofarm;
 import com.badlogic.gdx.utils.Array;
 
 public class PlantHandler implements disposable{
-    private Array<Plant> plants;
+    private static Array<Plant> plants;
     PlantHandler(){
         this.plants = new Array<Plant>();
     }
 
-    public boolean createNewPlant(){
+    public static Plant createNewPlant(int pathGroupNo){
         //Todo: Have the new plant's position be set in the creator. This doesn't say where the plant should be!
         try {
-            plants.add(new Plant(4000, 2000, 3000, 10000));
-            return true;
+            Plant tempPlant = new Plant(4000, 2000, 3000, 10000, 100, pathGroupNo);
+            plants.add(tempPlant);
+            return tempPlant;
         }
         catch (Exception error){
             System.out.println("(PlantHandler.java): An error occurred when trying to create a new instance of the Plant class.");
             error.printStackTrace();
+            return null;
         }
-        return false;
     }
 
-    public Array<Plant> getAllPlants(){
-        return plants;
+    public Array<Plant> getAllPathPlants(int pathGroupNo){
+        Array<Plant> tempPlantList = null;
+        for (int i = 0; i < plants.size; i++){
+            Plant tempPlant = plants.get(i);
+            if (tempPlant.getPathGroupNo() == pathGroupNo){
+                tempPlantList.add(tempPlant);
+            }
+        }
+        return tempPlantList;
     }
 
     public boolean deleteAllPlants(){

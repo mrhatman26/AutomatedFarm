@@ -24,9 +24,9 @@ public class AutoFarm extends ApplicationAdapter {
 		this.background = staticMethods.spriteTest(Gdx.files.internal("sprBackground.png"));
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		this.plantHandler = new PlantHandler();
 		this.planterPathCreator = new PlanterPathCreator();
 		this.planterManager = new PlanterManager(planterPathCreator);
+		this.plantHandler = new PlantHandler();
 		font = new BitmapFont();
 	}
 
@@ -37,7 +37,7 @@ public class AutoFarm extends ApplicationAdapter {
 		batch.draw(background, 0, 0);
 		planterPathCreator.updateAllPlanterPaths(batch, font);
 		planterManager.updateAllPlanters(batch, planterPathCreator, font);
-		planterManager.updatePlanterTargetPos(13, 7, true, 0);
+		//planterManager.updatePlanterTargetPos(13, 7, true, 0);
 		batch.end();
 		camera.update();
 	}

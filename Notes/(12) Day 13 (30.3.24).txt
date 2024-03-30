@@ -1,0 +1,5 @@
+Day 13 Notes (Unlucky):
+Started at 11am. With only half an hour, there's not much point doing anything, but whatever.
+-11:34: Started work on allowing planters to create plants.
+	>Off to work though.
+

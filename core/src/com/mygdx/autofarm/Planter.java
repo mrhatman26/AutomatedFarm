@@ -15,6 +15,7 @@ public class Planter implements disposable {
     private static final int MOVE_TIMER_MAX = 25;
     private boolean override, movingToTarget, movingRow, movingColumn, tempBool, targetOnRow;
     private Texture sprite, targetSprite;
+    private Array<Plant> myPlants;
     public Planter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo){
         this.position = new int[2];
         this.position[0] = cPos;
@@ -33,6 +34,7 @@ public class Planter implements disposable {
         this.movingColumn = true;
         this.targetOnRow = false;
         this.tempBool = true;
+        this.myPlants = null;
         this.moveTimer = MOVE_TIMER_MAX;
     }
 
@@ -57,10 +59,6 @@ public class Planter implements disposable {
     public void setPosition(int[] newPos){
         this.position[0] = newPos[0];
         this.position[1] = newPos[1];
-    }
-
-    public void setMovingToTarget(boolean newBool){
-        this.movingToTarget = newBool;
     }
 
     public boolean moveToTarget(boolean teleport, PlanterPathCreator planterPathCreator){
@@ -186,9 +184,6 @@ public class Planter implements disposable {
                             movingToTarget = false;
                             return true;
                         }
-                        //ToDo: When the row is no on a path that has columns, the planter goes up and then stops on the opposite
-                        //ToDo: side expecting to be able to get left when it can't. Fix THIS!
-                        //ToDo: Check white board for a better explanation of this as a drawing.
                     }
                 }
             }
@@ -204,7 +199,38 @@ public class Planter implements disposable {
         }
     }
 
+    private boolean plantNeedsWatering(){
+        if (myPlants != null) {
+            for (int i = 0; i < myPlants.size; i++){
+                if (myPlants.get(i).getWateringTimer() < 1){
+                    return true; //At least one plant needs watering.
+                }
+            }
+            return false; //None of my plants need watering.
+        }
+        else{
+            return false; //I have no plants.
+        }
+    }
+
     public void update(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font){
+        //Processing?
+        if (!movingToTarget) {
+            if (myPlants == null) { //If I have no plants, plant one.
+                if (position[1] != 1 && position[0] != 1) { //If I am not at my starting position already, move there.
+                    setTargetPosition(new int[]{1, 1}, true);
+                }
+                else{
+                    Plant tempPlant = PlantHandler.createNewPlant(pathGroupNo); //Create a new plant and add it to myPlants.
+                    if (tempPlant != null) {
+                        myPlants.add(tempPlant);
+                    }
+                    //ToDo: Give the plant object a Rect.
+                    //ToDo: Set the plant's position from here. Right now, the plant's position does not exist.
+                }
+            }
+        }
+        //Drawing
         if (movingToTarget){
             PlanterPath tempPath = planterPathCreator.getPathFromPos(targetPosition[1], targetPosition[0], pathGroupNo);
             spriteBatch.draw(targetSprite, tempPath.getX(true) - 11, tempPath.getY(true) - 11);
