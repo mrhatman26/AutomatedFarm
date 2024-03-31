@@ -34,7 +34,7 @@ public class Planter implements disposable {
         this.movingColumn = true;
         this.targetOnRow = false;
         this.tempBool = true;
-        this.myPlants = null;
+        this.myPlants = new Array<Plant>();
         this.moveTimer = MOVE_TIMER_MAX;
     }
 
@@ -59,6 +59,10 @@ public class Planter implements disposable {
     public void setPosition(int[] newPos){
         this.position[0] = newPos[0];
         this.position[1] = newPos[1];
+    }
+
+    public void setMovingToTarget(boolean newBool){
+        this.movingToTarget = newBool;
     }
 
     public boolean moveToTarget(boolean teleport, PlanterPathCreator planterPathCreator){
@@ -216,12 +220,12 @@ public class Planter implements disposable {
     public void update(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font){
         //Processing?
         if (!movingToTarget) {
-            if (myPlants == null) { //If I have no plants, plant one.
+            if (myPlants.size < 1) { //If I have no plants, plant one.
                 if (position[1] != 1 && position[0] != 1) { //If I am not at my starting position already, move there.
                     setTargetPosition(new int[]{1, 1}, true);
                 }
                 else{
-                    Plant tempPlant = PlantHandler.createNewPlant(pathGroupNo); //Create a new plant and add it to myPlants.
+                    Plant tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position); //Create a new plant and add it to myPlants.
                     if (tempPlant != null) {
                         myPlants.add(tempPlant);
                     }
@@ -253,5 +257,7 @@ public class Planter implements disposable {
     public void dispose(){
         sprite.dispose();
         targetSprite.dispose();
+        myPlants.clear();
+        myPlants = null;
     }
 }

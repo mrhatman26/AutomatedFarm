@@ -38,6 +38,7 @@ public class AutoFarm extends ApplicationAdapter {
 		planterPathCreator.updateAllPlanterPaths(batch, font);
 		planterManager.updateAllPlanters(batch, planterPathCreator, font);
 		//planterManager.updatePlanterTargetPos(13, 7, true, 0);
+		plantHandler.updateAllPlants(batch);
 		batch.end();
 		camera.update();
 	}

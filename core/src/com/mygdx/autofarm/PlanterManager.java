@@ -57,9 +57,9 @@ public class PlanterManager implements disposable{
         planters.get(planterID).setTargetPosition(new int[]{column, row}, startMoving);
     }
 
-    public void updatePlanterMovingToTarget(boolean startMoving, int planterID){
+    /*public void updatePlanterMovingToTarget(boolean startMoving, int planterID){
         planters.get(planterID).setMovingToTarget(startMoving);
-    }
+    }*/
 
     public void updateAllPlanters(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font){
         for (int i = 0; i < planters.size; i++){
