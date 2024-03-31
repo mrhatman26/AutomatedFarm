@@ -157,9 +157,6 @@ public class Planter implements disposable {
                                 movingColumn = false;
                                 boolean moveDirection = staticMethods.closestNumber(targetPosition[1], 1, planterPathCreator.getRowSize());
                                 tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, !moveDirection, position[1], position[0]);
-                                setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
-                                planterRect.x = tempPath.getX(true) - 16;
-                                planterRect.y = tempPath.getY(true) - 16;
                                 if (tempPath != null) {
                                     setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
                                     planterRect.x = tempPath.getX(true) - 16;

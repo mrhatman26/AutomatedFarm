@@ -8,3 +8,8 @@ Started at 10am.
 	>They will only create plants if the space is empty.
 	>Will need to change to check if other plants are in the way
 	too.
+-11:14: Another pathing bug -_-
+	>It was the one that happened a while back that I could not fix.
+	>Turns out I was telling the planter to go to a non existent path
+	and THEN checking if the path was null and THEN moving to it again.
+	>Haha, I knew I wasn't Master Computer Science material.
