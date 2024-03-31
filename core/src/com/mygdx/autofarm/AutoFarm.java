@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class AutoFarm extends ApplicationAdapter {
-	public static boolean debug = false;
+	public static boolean debug = true;
 	private SpriteBatch batch;
 	private Texture background;
 	private OrthographicCamera camera;

@@ -7,6 +7,8 @@ import com.badlogic.gdx.utils.Array;
 import java.nio.file.Path;
 
 public class PlanterPathCreator {
+    private String className = Thread.currentThread().getStackTrace()[1].getClassName().replace("com.mygdx.autofarm.", "");
+    private String methodName = "";
     private Array<PlanterPath> planterPaths;
     private int columnSize, rowSize;
     PlanterPathCreator(){
@@ -135,20 +137,20 @@ public class PlanterPathCreator {
         }
     }
 
-    public int checkForEmptySpace(int row, int column, int pathGroup){ //1 = Up is empty, 2 = Down is empty, 3 = Left is empty, 4 = Right is empty, 0 = None are empty
-        if (getPathFromPos(row + 1, column, pathGroup) == null) { //Up
-            return 1;
+    public boolean checkIfSpaceIsEmpty(int row, int column, int pathGroup, int direction){
+        methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
+        switch (direction){
+            case 1: //Check the top
+                return getPathFromPos(row + 1, column, pathGroup) == null;
+            case 2: //Check the bottom
+                return getPathFromPos(row - 1, column, pathGroup) == null;
+            case 3: //Check the left
+                return getPathFromPos(row, column - 1, pathGroup) == null;
+            case 4: //Check the right
+                return getPathFromPos(row, column + 1, pathGroup) == null;
+            default:
+                return false;
         }
-        if (getPathFromPos(row - 1, column, pathGroup) == null) { //down
-            return 2;
-        }
-        if (getPathFromPos(row, column - 1, pathGroup) == null){ //Left
-            return 3;
-        }
-        if (getPathFromPos(row, column + 1, pathGroup) == null) { //Right
-            return 4;
-        }
-        return 0;
     }
 
     public PlanterPath getPathFromPos(int row, int column, int pathGroup){

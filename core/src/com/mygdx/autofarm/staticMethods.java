@@ -71,5 +71,26 @@ public class staticMethods {
             }
         }
     }
+
+    public static void systemMessage(String className, String methodName, String message, boolean isDebugMessage){
+        if (isDebugMessage){
+            if (AutoFarm.debug){
+                if (methodName != null && !methodName.equals("")) {
+                    System.out.println("(" + className + ":" + methodName + "): " + message);
+                }
+                else{
+                    System.out.println("(" + className + "): " + message);
+                }
+            }
+        }
+        else{
+            if (methodName != null && !methodName.equals("")) {
+                System.out.println("(" + className + ":" + methodName + "): " + message);
+            }
+            else{
+                System.out.println("(" + className + "): " + message);
+            }
+        }
+    }
 }
 
