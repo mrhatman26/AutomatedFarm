@@ -52,6 +52,14 @@ public class Plant implements disposable{
         return this.pathGroupNo;
     }
 
+    public int[] getPosition(){
+        return this.position;
+    }
+
+    public int getCreationDirection(){
+        return this.creationDirection;
+    }
+
     public void update(Batch spriteBatch){
         spriteBatch.draw(sprite, plantRect.x, plantRect.y);
     }

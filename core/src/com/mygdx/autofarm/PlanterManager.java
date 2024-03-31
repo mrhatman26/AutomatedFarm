@@ -12,8 +12,8 @@ public class PlanterManager implements disposable{
         this.planters = new Array<Planter>();
         int pathGroupNo = 0;
         for (int i = 0; i < planterPathCreator.getPlanterPathsArraySize(); i++){
-            //PlanterPath tempPath = planterPathCreator.getFirstPath(i);
-            PlanterPath tempPath = planterPathCreator.getPathFromPos(5, 13, pathGroupNo);
+            PlanterPath tempPath = planterPathCreator.getFirstPath(i);
+            //PlanterPath tempPath = planterPathCreator.getPathFromPos(5, 13, pathGroupNo);
             if (tempPath != null) {
                 System.out.println("(PlanterManager:Initialiser): " + tempPath.getCPos() + " | "  + tempPath.getRPos() + " | " + pathGroupNo);
                 createNewPlanter(tempPath.getX(true) - 16, tempPath.getY(true) - 16, tempPath.getCPos(), tempPath.getRPos(), pathGroupNo); //ToDo: These coordinates are TEMPORARY!

@@ -200,11 +200,17 @@ public class Planter implements disposable {
         }
     }
 
-    private boolean plantNeedsWatering(){
+    private boolean plantNeedsMaintaining(){
         if (myPlants != null) {
             for (int i = 0; i < myPlants.size; i++){
                 if (myPlants.get(i).getWateringTimer() < 1){
                     return true; //At least one plant needs watering.
+                }
+                if (myPlants.get(i).getFeedingTimer() < 1){
+                    return true;
+                }
+                if (myPlants.get(i).getHarvestingTimer() < 1){
+                    return true;
                 }
             }
             return false; //None of my plants need watering.
@@ -214,37 +220,87 @@ public class Planter implements disposable {
         }
     }
 
+    private boolean checkPlantOnPos(int creationDirection){
+        Plant tempPlant;
+        for (int i = 0; i > myPlants.size; i++){
+            tempPlant = myPlants.get(i);
+            if (tempPlant.getPosition() == position && tempPlant.getCreationDirection() == creationDirection){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean tryPlanting(PlanterPathCreator planterPathCreator, boolean checkForOtherPlants){
+        int emptySpace = planterPathCreator.checkForEmptySpace(position[1], position[0], pathGroupNo);
+        Plant tempPlant = null;
+        switch(emptySpace){
+            case 1:
+                if (checkForOtherPlants) {
+                    if (checkPlantOnPos(1)){
+                        break;
+                    }
+                }
+                tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, position, 1); //Create a new plant to the top.
+                break;
+            case 2:
+                if (checkForOtherPlants) {
+                    if (checkPlantOnPos(2)){
+                        break;
+                    }
+                }
+                tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, position, 2); //Create a new plant to the bottom.
+                break;
+            case 3:
+                if (checkForOtherPlants) {
+                    if (checkPlantOnPos(3)){
+                        break;
+                    }
+                }
+                tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 3); //Create a new plant to the left.
+                break;
+            case 4:
+                if (checkForOtherPlants) {
+                    if (checkPlantOnPos(4)){
+                        break;
+                    }
+                }
+                tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, position, 4); //Create a new plant to the right.
+                break;
+            default:
+                if (checkForOtherPlants) {
+                    if (checkPlantOnPos(3)){
+                        break;
+                    }
+                }
+                tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 5); //Create a new plant to the left.
+        }
+        if (tempPlant != null) {
+            myPlants.add(tempPlant);
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
     public void update(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font){
         //Processing?
         if (!movingToTarget) {
             if (myPlants.size < 1) { //If I have no plants, plant one.
-                if (position[1] != 1 && position[0] != 1) { //If I am not at my starting position already, move there.
+                if (position[1] != 1 && position[0] != 1) { //If I am not at my starting position already, move there. //ToDo: Why go back to the start specifically?
                     setTargetPosition(new int[]{1, 1}, true);
                 }
                 else{
-                    int emptySpace = planterPathCreator.checkForEmptySpace(position[1], position[0], pathGroupNo);
-                    Plant tempPlant;
-                    switch(emptySpace){
-                        case 1:
-                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, position, 1); //Create a new plant to the top.
-                            break;
-                        case 2:
-                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, position, 2); //Create a new plant to the bottom.
-                            break;
-                        case 3:
-                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 3); //Create a new plant to the left.
-                            break;
-                        case 4:
-                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, position, 4); //Create a new plant to the right.
-                            break;
-                        default:
-                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 5); //Create a new plant to the left.
-                    }
-                    if (tempPlant != null) {
-                        myPlants.add(tempPlant);
-                    }
-                    //ToDo: Give the plant object a Rect.
-                    //ToDo: Set the plant's position from here. Right now, the plant's position does not exist.
+                    tryPlanting(planterPathCreator, false);
+                }
+            }
+            else{
+                if (plantNeedsMaintaining()){ //Check if any of my plants needs maintaining. (Watering, feeding or harvesting)
+                    System.out.println("TBD");
+                }
+                else{ //All plants are fine so plant some more.
+                    tryPlanting(planterPathCreator, true);
                 }
             }
         }

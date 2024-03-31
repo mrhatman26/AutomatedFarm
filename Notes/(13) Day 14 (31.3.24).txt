@@ -13,3 +13,6 @@ Started at 10am.
 	>Turns out I was telling the planter to go to a non existent path
 	and THEN checking if the path was null and THEN moving to it again.
 	>Haha, I knew I wasn't Master Computer Science material.
+-12:00: Started writing code to allow planters to move to other planterPaths to create Plants.
+	>This is going to be complex!
+	>It's nowhere near done.
