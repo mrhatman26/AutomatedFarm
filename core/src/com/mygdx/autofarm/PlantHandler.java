@@ -9,10 +9,10 @@ public class PlantHandler implements disposable{
         this.plants = new Array<Plant>();
     }
 
-    public static Plant createNewPlant(int pathGroupNo, int x, int y, int[] position){
+    public static Plant createNewPlant(int pathGroupNo, int x, int y, int[] position, int creationDirection){
         //Todo: Have the new plant's position be set in the creator. This doesn't say where the plant should be!
         try {
-            Plant tempPlant = new Plant(4000, 2000, 3000, 10000, 100, pathGroupNo, x, y, position);
+            Plant tempPlant = new Plant(4000, 2000, 3000, 10000, 100, pathGroupNo, x, y, position, creationDirection);
             plants.add(tempPlant);
             return tempPlant;
         }
@@ -51,7 +51,6 @@ public class PlantHandler implements disposable{
 
     public void updateAllPlants(Batch spriteBatch){
         if (plants != null){
-            System.out.println("(PlantHandler:updateAllPlants): plants.size = " + plants.size);
             for (int i = 0; i < plants.size; i++){
                 plants.get(i).update(spriteBatch);
             }

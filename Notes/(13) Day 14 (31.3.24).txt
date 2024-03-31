@@ -1,6 +1,10 @@
 Day 14 Notes: (File 13, unlucky)
 Started at 10am.
--10:35: Plants can now create plants to their left.
+-10:35: Planters can now create plants to their left.
 	>Plants don't do anything yet.
 	>Need to implement an algorithm to avoid
 	plants being created on planterPaths.
+-11:07: Planters can now create plants in four directions.
+	>They will only create plants if the space is empty.
+	>Will need to change to check if other plants are in the way
+	too.

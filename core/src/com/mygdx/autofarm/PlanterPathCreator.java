@@ -135,6 +135,22 @@ public class PlanterPathCreator {
         }
     }
 
+    public int checkForEmptySpace(int row, int column, int pathGroup){ //1 = Up is empty, 2 = Down is empty, 3 = Left is empty, 4 = Right is empty, 0 = None are empty
+        if (getPathFromPos(row + 1, column, pathGroup) == null) { //Up
+            return 1;
+        }
+        if (getPathFromPos(row - 1, column, pathGroup) == null) { //down
+            return 2;
+        }
+        if (getPathFromPos(row, column - 1, pathGroup) == null){ //Left
+            return 3;
+        }
+        if (getPathFromPos(row, column + 1, pathGroup) == null) { //Right
+            return 4;
+        }
+        return 0;
+    }
+
     public PlanterPath getPathFromPos(int row, int column, int pathGroup){
         //if (AutoFarm.debug) {
         //System.out.println("(PlanterPathCreator:getPathFromPos): Target path details:\nRow = " + row + "\nColumn = " + column + "\nPath Group = " + pathGroup);

@@ -225,7 +225,24 @@ public class Planter implements disposable {
                     setTargetPosition(new int[]{1, 1}, true);
                 }
                 else{
-                    Plant tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position); //Create a new plant and add it to myPlants.
+                    int emptySpace = planterPathCreator.checkForEmptySpace(position[1], position[0], pathGroupNo);
+                    Plant tempPlant;
+                    switch(emptySpace){
+                        case 1:
+                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, position, 1); //Create a new plant to the top.
+                            break;
+                        case 2:
+                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, position, 2); //Create a new plant to the bottom.
+                            break;
+                        case 3:
+                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 3); //Create a new plant to the left.
+                            break;
+                        case 4:
+                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, position, 4); //Create a new plant to the right.
+                            break;
+                        default:
+                            tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 5); //Create a new plant to the left.
+                    }
                     if (tempPlant != null) {
                         myPlants.add(tempPlant);
                     }

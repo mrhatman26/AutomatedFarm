@@ -8,12 +8,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.awt.*;
 
 public class Plant implements disposable{
-    private int harvestingTimer, wateringTimer, feedingTimer, dyingTimer, value, pathGroupNo;
+    private int harvestingTimer, wateringTimer, feedingTimer, dyingTimer, value, pathGroupNo, creationDirection;
     private int[] position;
     private boolean grown, failed;
     private Texture sprite;
     private Rectangle plantRect;
-    public Plant(int harvestingTimer, int wateringTimer, int feedingTimer, int dyingTimer, int value, int pathGroupNo, int x, int y, int[] position){
+    public Plant(int harvestingTimer, int wateringTimer, int feedingTimer, int dyingTimer, int value, int pathGroupNo, int x, int y, int[] position, int creationDirection){
         this.harvestingTimer = harvestingTimer;
         this.wateringTimer = wateringTimer;
         this.feedingTimer = feedingTimer;
@@ -28,6 +28,7 @@ public class Plant implements disposable{
         this.plantRect.x = x;
         this.plantRect.y = y;
         this.position = position;
+        this.creationDirection = creationDirection;
         this.sprite = staticMethods.spriteTest(Gdx.files.internal("sprPlant.png"));
     }
 
