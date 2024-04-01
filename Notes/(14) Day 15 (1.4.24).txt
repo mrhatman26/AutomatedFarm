@@ -1,0 +1,11 @@
+Day 15 Notes:
+Started at 10:00am.
+-11:00: Tried using enums for my switch cases.
+	>They don't work and seem useless.
+	>What an utter waste of time.
+-11:30: Planters now move to the next path
+	when they can't create Plants.
+	>Buggy and stops planters from
+	creating new plants.
+	>off to work though -_-
+

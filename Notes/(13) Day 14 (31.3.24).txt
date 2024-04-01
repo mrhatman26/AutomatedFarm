@@ -35,3 +35,5 @@ Started at 10am.
 	>But now I feel even more stupid because the problem was nothing more
 	than a simple case of a equality sign being the wrong way in one of my for loops.
 	>-_-
+-16:30: With that annoying waste of time. I'm going to waste even more time!
+	>That's right, it's time for a break...

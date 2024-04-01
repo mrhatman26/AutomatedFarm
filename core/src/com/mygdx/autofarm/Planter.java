@@ -43,13 +43,16 @@ public class Planter implements disposable {
         this.failedPlantCount = 0;
     }
 
+
     public void setTargetPosition(int[] newTargetPos, boolean startMoving){
+        methodName = Thread.currentThread().getStackTrace()[1].getMethodName(); //https://stackoverflow.com/questions/7495249/get-the-name-of-the-current-method-being-executed
         try {
             if (newTargetPos.length != 2) {
                 throw new Exception("newTargetPos is in incorrect format. Must be two numbers!");
             }
             else{
                 this.targetPosition = newTargetPos;
+                staticMethods.systemMessage(className, methodName, "targetPos R = " + targetPosition[1] + " | targetPos C = " + targetPosition[0], true);
                 if (startMoving){
                     this.movingToTarget = true;
                 }
@@ -193,9 +196,6 @@ public class Planter implements disposable {
                     }
                 }
             }
-            /*if (position[0] != targetPosition[0]) {//Is the target on the same column as the planter?
-                ehiouwbgi
-            }*/
             return true;
         }
         catch (Exception error){
@@ -277,9 +277,11 @@ public class Planter implements disposable {
             return false;
         }
         else{
+            failedPlantCount++;
             if (failedPlantCount >= 4){
                 if (position[1] == 1 || position[1] == planterPathCreator.getRowSize()){
-                    setTargetPosition(new int[]{position[0]++, position[1]}, true);
+                    setTargetPosition(new int[]{position[0] + 1, position[1]}, true);
+                    failedPlantCount = 0;
                 }
             }
             return true;
