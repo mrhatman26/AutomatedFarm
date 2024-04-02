@@ -64,21 +64,21 @@ public class PlantHandler implements disposable{
         return planterPlants;
     }
 
-    public boolean plantNeedsMaintaining(int planterId){
+    public Plant plantNeedsMaintaining(int planterId){
         for (Plant plant: plants){
             if (plant.getPlanterId() == planterId){
                 if (plant.getWateringTimer() < 1){
-                    return true;
+                    return plant;
                 }
                 if (plant.getFeedingTimer() < 1){
-                    return true;
+                    return plant;
                 }
                 if (plant.getHarvestingTimer() < 1){
-                    return true;
+                    return plant;
                 }
             }
         }
-        return false;
+        return null;
     }
 
     public void updateAllPlants(Batch spriteBatch, BitmapFont font) {

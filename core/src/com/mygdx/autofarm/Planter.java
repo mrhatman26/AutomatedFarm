@@ -13,11 +13,11 @@ public class Planter implements disposable {
     private String className = Thread.currentThread().getStackTrace()[1].getClassName().replace("com.mygdx.autofarm.", "");//"Planter";
     private String methodName = "";
     private int[] position, targetPosition;
-    private int pathGroupNo, moveTimer, failedPlantCount, id;
+    private int pathGroupNo, moveTimer, failedPlantCount, id, plantingTimer;
     private static final int MOVE_TIMER_MAX = 25;
+    private static final int PLANTING_TIMER_MAX = 25;
     private boolean override, movingToTarget, movingRow, movingColumn, tempBool, targetOnRow;
     private Texture sprite, targetSprite;
-    private int[] tempPos;
 
     public Planter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo, int id){
         this.position = new int[2];
@@ -40,7 +40,7 @@ public class Planter implements disposable {
         this.tempBool = true;
         this.moveTimer = MOVE_TIMER_MAX;
         this.failedPlantCount = 0;
-        this.tempPos = new int[2];
+        this.plantingTimer = PLANTING_TIMER_MAX;
     }
 
     public void setTargetPosition(int[] newTargetPos, boolean startMoving){
@@ -226,52 +226,59 @@ public class Planter implements disposable {
     private boolean tryPlanting(PlanterPathCreator planterPathCreator, boolean checkForOtherPlants, PlantHandler plantHandler){
         methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         staticMethods.systemMessage(className, methodName, "checkForOtherPlants = " + String.valueOf(checkForOtherPlants), true);
-        Plant tempPlant = null;
-        for (int i = 1; i < 5; i++){ //i in this case is the direction to check.
-            staticMethods.systemMessage(className, methodName, "Direction(i) is " + i + "\nFirst check is " + String.valueOf(planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i)) + "\nSecond check is " + String.valueOf(checkPlantOnPos(i, plantHandler)), true);
-            if (planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i) && !checkPlantOnPos(i, plantHandler)){
-                switch (i){
-                    case 1:
-                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, new int[]{position[0], position[1]}, 1, id); //Create a new plant to the top.
-                        staticMethods.systemMessage(className, methodName, "New plant created", true);
-                        break;
-                    case 2:
-                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, new int[]{position[0], position[1]}, 2, id); //Create a new plant to the bottom.
-                        staticMethods.systemMessage(className, methodName, "New plant created", true);
-                        break;
-                    case 3:
-                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, new int[]{position[0], position[1]}, 3, id); //Create a new plant to the left.
-                        staticMethods.systemMessage(className, methodName, "New plant created", true);
-                        break;
-                    case 4:
-                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, new int[]{position[0], position[1]}, 4, id); //Create a new plant to the right.
-                        staticMethods.systemMessage(className, methodName, "New plant created", true);
-                        break;
-                    default:
-                        staticMethods.systemMessage(className, methodName, "Something went wrong when trying to check if the directions are empty", false);
+        plantingTimer--;
+        if (plantingTimer < 1) {
+            Plant tempPlant = null;
+            for (int i = 1; i < 5; i++) { //i in this case is the direction to check.
+                staticMethods.systemMessage(className, methodName, "Direction(i) is " + i + "\nFirst check is " + String.valueOf(planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i)) + "\nSecond check is " + String.valueOf(checkPlantOnPos(i, plantHandler)), true);
+                if (planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i) && !checkPlantOnPos(i, plantHandler)) {
+                    switch (i) {
+                        case 1:
+                            tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, new int[]{position[0], position[1]}, 1, id); //Create a new plant to the top.
+                            staticMethods.systemMessage(className, methodName, "New plant created", true);
+                            break;
+                        case 2:
+                            tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, new int[]{position[0], position[1]}, 2, id); //Create a new plant to the bottom.
+                            staticMethods.systemMessage(className, methodName, "New plant created", true);
+                            break;
+                        case 3:
+                            tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, new int[]{position[0], position[1]}, 3, id); //Create a new plant to the left.
+                            staticMethods.systemMessage(className, methodName, "New plant created", true);
+                            break;
+                        case 4:
+                            tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, new int[]{position[0], position[1]}, 4, id); //Create a new plant to the right.
+                            staticMethods.systemMessage(className, methodName, "New plant created", true);
+                            break;
+                        default:
+                            staticMethods.systemMessage(className, methodName, "Something went wrong when trying to check if the directions are empty", false);
+                    }
+                    break;
                 }
-                break;
             }
-        }
-        if (tempPlant != null) {
-            failedPlantCount = 0;
-            return false;
+            if (tempPlant != null) {
+                failedPlantCount = 0;
+                plantingTimer = PLANTING_TIMER_MAX;
+                return false;
+            } else {
+                failedPlantCount++;
+                staticMethods.systemMessage(className, methodName, "Failed to create Plant. failedPlantCounter is now " + failedPlantCount, true);
+                if (failedPlantCount >= 4) {
+                    staticMethods.systemMessage(className, methodName, "failedPlantCounter was more than or equal to 4. Moving and resetting the value to 0", true);
+                    if (position[1] == 1 || position[1] == planterPathCreator.getRowSize()) {
+                        setTargetPosition(new int[]{position[0] + 1, position[1]}, true);
+                        /*for (Plant plant : plantHandler.getPlanterPlants(id)) {
+                            System.out.println("R" + plant.getPosition()[1] + " | C" + plant.getPosition()[0]);
+                            tempPos = plant.getPosition();
+                        }*/
+                        failedPlantCount = 0;
+                    }
+                }
+                plantingTimer = PLANTING_TIMER_MAX;
+                return true;
+            }
         }
         else{
-            failedPlantCount++;
-            staticMethods.systemMessage(className, methodName, "Failed to create Plant. failedPlantCounter is now " + failedPlantCount, true);
-            if (failedPlantCount >= 4){
-                staticMethods.systemMessage(className, methodName, "failedPlantCounter was more than or equal to 4. Moving and resetting the value to 0", true);
-                if (position[1] == 1 || position[1] == planterPathCreator.getRowSize()){
-                    setTargetPosition(new int[]{position[0] + 1, position[1]}, true);
-                    for (Plant plant: plantHandler.getPlanterPlants(id)){
-                        System.out.println("R" + plant.getPosition()[1] + " | C" + plant.getPosition()[0]);
-                        tempPos = plant.getPosition();
-                    }
-                    failedPlantCount = 0;
-                }
-            }
-            return true;
+            return false;
         }
     }
 
@@ -287,7 +294,7 @@ public class Planter implements disposable {
                 }
             }
             else{
-                if (plantHandler.plantNeedsMaintaining(id)){ //Check if any of my plants needs maintaining. (Watering, feeding or harvesting)
+                if (plantHandler.plantNeedsMaintaining(id) != null){ //Check if any of my plants needs maintaining. (Watering, feeding or harvesting)
                     System.out.println("TBD");
                 }
                 else{ //All plants are fine so plant some more.

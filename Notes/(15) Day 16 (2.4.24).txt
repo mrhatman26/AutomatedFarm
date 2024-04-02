@@ -27,3 +27,5 @@ Started at 9:00am.
 	>Should have been:
 		->new int[]{position[0], position[1]}
 	>-_-
+-15:30: Too distracted...
+	>Added a timer to Planters creating Plants.
