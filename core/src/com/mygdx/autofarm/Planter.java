@@ -79,10 +79,10 @@ public class Planter implements disposable {
         try{
             //position[0] = Columns and position[1] = Rows. Same for targetPosition.
             if (teleport){
-                position = targetPosition;
+                this.position = this.targetPosition;
                 PlanterPath tempPath = null;
                 if (tempBool){
-                    tempPath = planterPathCreator.getPathFromPos(position[1], position[0], pathGroupNo);
+                    tempPath = planterPathCreator.getPathFromPos(this.position[1], this.position[0], pathGroupNo);
                     tempBool = false;
                 }
                 if (tempPath != null) {
@@ -99,19 +99,19 @@ public class Planter implements disposable {
                 moveTimer--;
                 if (moveTimer < 1) {
                     moveTimer = MOVE_TIMER_MAX;
-                    if (planterPathCreator.checkNullColumns(pathGroupNo, position) && position[0] != targetPosition[0]){
+                    if (planterPathCreator.checkNullColumns(pathGroupNo, this.position) && this.position[0] != this.targetPosition[0]){
                         movingRow = true;
                         movingColumn = false;
                         targetOnRow = true;
                     }
-                    if (position[1] != targetPosition[1]) {//Is the target on the same row as the planter?
+                    if (this.position[1] != this.targetPosition[1]) {//Is the target on the same row as the planter?
                         if (movingColumn) {
                             //boolean moveDirection = staticMethods.closestNumber(position[0], planterPathCreator.getFirstColumnPath(pathGroupNo, position[1]).getCPos(), planterPathCreator.getLastColumnPath(pathGroupNo, position[1]).getCPos());
-                            boolean moveDirection = staticMethods.closestNumber(targetPosition[0], 1, planterPathCreator.getColumnSize());
+                            boolean moveDirection = staticMethods.closestNumber(this.targetPosition[0], 1, planterPathCreator.getColumnSize());
                             PlanterPath tempPath;
                             tempPath = planterPathCreator.getClosestColumnPath(pathGroupNo, moveDirection, position[1], position[0]);
                             if (tempPath != null) {
-                                setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
+                                this.setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
                                 planterRect.x = tempPath.getX(true) - 16;
                                 planterRect.y = tempPath.getY(true) - 16;
                             } else {
@@ -124,10 +124,10 @@ public class Planter implements disposable {
                             if (targetOnRow) { //The target might be on a column row...
                                 movingRow = true;
                                 movingColumn = false;
-                                boolean moveDirection = staticMethods.closestNumber(targetPosition[1], 1, planterPathCreator.getRowSize());
-                                tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, !moveDirection, position[1], position[0]);
+                                boolean moveDirection = staticMethods.closestNumber(this.targetPosition[1], 1, planterPathCreator.getRowSize());
+                                tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, !moveDirection, this.position[1], this.position[0]);
                                 if (tempPath != null) {
-                                    setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
+                                    this.setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
                                     planterRect.x = tempPath.getX(true) - 16;
                                     planterRect.y = tempPath.getY(true) - 16;
                                 } else {
@@ -136,17 +136,17 @@ public class Planter implements disposable {
                                     targetOnRow = false;
                                 }
                             } else {
-                                if (targetPosition[1] > position[1]) {
-                                    tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, true, position[1], position[0]);
+                                if (this.targetPosition[1] > position[1]) {
+                                    tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, true, this.position[1], this.position[0]);
                                     if (tempPath != null) {
-                                        setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
+                                        this.setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
                                         planterRect.x = tempPath.getX(true) - 16;
                                         planterRect.y = tempPath.getY(true) - 16;
                                     }
                                 } else {
-                                    tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, false, position[1], position[0]);
+                                    tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, false, this.position[1], this.position[0]);
                                     if (tempPath != null) {
-                                        setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
+                                        this.setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
                                         planterRect.x = tempPath.getX(true) - 16;
                                         planterRect.y = tempPath.getY(true) - 16;
                                         movingRow = false;
@@ -156,16 +156,16 @@ public class Planter implements disposable {
                             }
                         }
                     } else {
-                        if (position[0] != targetPosition[0]) { //Has the target column been reached?
+                        if (this.position[0] != this.targetPosition[0]) { //Has the target column been reached?
                             PlanterPath tempPath;
-                            if (planterPathCreator.checkNullColumns(pathGroupNo, position) || targetOnRow) { //The target might be on a column row...
+                            if (planterPathCreator.checkNullColumns(pathGroupNo, this.position) || targetOnRow) { //The target might be on a column row...
                                 targetOnRow = true;
                                 movingRow = true;
                                 movingColumn = false;
-                                boolean moveDirection = staticMethods.closestNumber(targetPosition[1], 1, planterPathCreator.getRowSize());
-                                tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, !moveDirection, position[1], position[0]);
+                                boolean moveDirection = staticMethods.closestNumber(this.targetPosition[1], 1, planterPathCreator.getRowSize());
+                                tempPath = planterPathCreator.getClosestRowPath(pathGroupNo, !moveDirection, this.position[1], this.position[0]);
                                 if (tempPath != null) {
-                                    setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
+                                    this.setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
                                     planterRect.x = tempPath.getX(true) - 16;
                                     planterRect.y = tempPath.getY(true) - 16;
                                 } else {
@@ -175,15 +175,15 @@ public class Planter implements disposable {
                                 }
                             }
                             else {
-                                if (position[0] > targetPosition[0]) {
+                                if (this.position[0] > this.targetPosition[0]) {
                                     //Move left
-                                    tempPath = planterPathCreator.getPathFromPos(position[1], position[0] - 1, pathGroupNo);
+                                    tempPath = planterPathCreator.getPathFromPos(this.position[1], this.position[0] - 1, pathGroupNo);
                                 } else {
                                     //Move right
-                                    tempPath = planterPathCreator.getPathFromPos(position[1], position[0] + 1, pathGroupNo);
+                                    tempPath = planterPathCreator.getPathFromPos(this.position[1], this.position[0] + 1, pathGroupNo);
                                 }
                                 if (tempPath != null) {
-                                    setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
+                                    this.setPosition(new int[]{tempPath.getCPos(), tempPath.getRPos()});
                                     planterRect.x = tempPath.getX(true) - 16;
                                     planterRect.y = tempPath.getY(true) - 16;
                                 }
