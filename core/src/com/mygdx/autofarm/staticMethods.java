@@ -92,5 +92,9 @@ public class staticMethods {
             }
         }
     }
+
+    public static int getRandom(int max, int min){
+        return (int)(Math.random() * (max - min) + min);
+    }
 }
 

@@ -32,3 +32,7 @@ Started at 9:00am.
 -15:49: Planters now go all the way around the paths to find available spaces for Plants.
 	>Holy hell, this worked way too quickly.
 	>What will screw it up?
+-16:10:: Plants' timers are now random.
+	>They also tick down constantly now.
+	>I added a method to staticMethods that generate a random number using Math.random. Saves me having to write the whole thing over and over.
+	>Timers are a bit too low. Might want to increase.

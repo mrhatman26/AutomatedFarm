@@ -16,7 +16,7 @@ public class PlantHandler implements disposable{
     public Plant createNewPlant(int pathGroupNo, int x, int y, int[] position, int creationDirection, int planterId){
         try {
             staticMethods.systemMessage("PlantHandler", null, "Attempting to create a new plant...", true);
-            Plant tempPlant = new Plant(4000, 2000, 3000, 10000, 100, pathGroupNo, x, y, position, creationDirection, planterId);
+            Plant tempPlant = new Plant(pathGroupNo, x, y, position, creationDirection, planterId);
             plants.add(tempPlant);
             staticMethods.systemMessage("PlantHandler", null, "Plant created successfully", true);
             return tempPlant;
