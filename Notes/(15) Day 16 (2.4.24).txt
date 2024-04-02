@@ -36,3 +36,13 @@ Started at 9:00am.
 	>They also tick down constantly now.
 	>I added a method to staticMethods that generate a random number using Math.random. Saves me having to write the whole thing over and over.
 	>Timers are a bit too low. Might want to increase.
+	>Going to have a break now.
+-20:00: Back to it.
+-21:03: Planters can now reset Plants' watering and feeding timers.
+	>Works okay I guess. But I don't want to admit any success unless this
+	project is done and it actually works.
+	>Now I just need to allow Planters to:
+		->Harvest plants and get their value. (Money!)
+		->Replace dead plants.
+	>And, at a push if I have the time, make the control panel I was planning to make. (Nope)
+	>I'm finishing here today. I want to end it on a somewhat good note after this morning.

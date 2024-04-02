@@ -13,11 +13,13 @@ public class Planter implements disposable {
     private String className = Thread.currentThread().getStackTrace()[1].getClassName().replace("com.mygdx.autofarm.", "");//"Planter";
     private String methodName = "";
     private int[] position, targetPosition;
-    private int pathGroupNo, moveTimer, failedPlantCount, id, plantingTimer;
+    private int pathGroupNo, moveTimer, failedPlantCount, id, plantingTimer, maintainTimer;
     private static final int MOVE_TIMER_MAX = 25;
     private static final int PLANTING_TIMER_MAX = 25;
+    private static final int MAINTAIN_TIMER_MAX = 20;
     private boolean override, movingToTarget, movingRow, movingColumn, tempBool, targetOnRow;
     private Texture sprite, targetSprite;
+    private Plant targetPlant;
 
     public Planter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo, int id){
         this.position = new int[2];
@@ -41,6 +43,8 @@ public class Planter implements disposable {
         this.moveTimer = MOVE_TIMER_MAX;
         this.failedPlantCount = 0;
         this.plantingTimer = PLANTING_TIMER_MAX;
+        this.targetPlant = null;
+        this.maintainTimer = MAINTAIN_TIMER_MAX;
     }
 
     public void setTargetPosition(int[] newTargetPos, boolean startMoving){
@@ -320,8 +324,24 @@ public class Planter implements disposable {
                 }
             }
             else{
-                if (plantHandler.plantNeedsMaintaining(id) != null){ //Check if any of my plants needs maintaining. (Watering, feeding or harvesting)
-                    System.out.println("TBD");
+                targetPlant = plantHandler.plantNeedsMaintaining(id);
+                if (targetPlant != null){ //Check if any of my plants needs maintaining. (Watering, feeding or harvesting)
+                    if (position[1] != targetPlant.getPosition()[1] || position[0] != targetPlant.getPosition()[0]) {
+                        setTargetPosition(new int[]{targetPlant.getPosition()[0], targetPlant.getPosition()[1]}, true);
+                    }
+                    else{
+                        maintainTimer--;
+                        if (maintainTimer < 1){
+                            maintainTimer = MAINTAIN_TIMER_MAX;
+                            if (targetPlant.getWateringTimer() < 1){
+                                targetPlant.resetWateringTimer();
+                            }
+                            if (targetPlant.getFeedingTimer() < 1){
+                                targetPlant.resetFeedingTimer();
+                            }
+                            targetPlant = null;
+                        }
+                    }
                 }
                 else{ //All plants are fine so plant some more.
                     tryPlanting(planterPathCreator, true, plantHandler);
