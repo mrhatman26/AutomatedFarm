@@ -16,15 +16,15 @@ public class PlanterManager implements disposable{
             //PlanterPath tempPath = planterPathCreator.getPathFromPos(5, 13, pathGroupNo);
             if (tempPath != null) {
                 System.out.println("(PlanterManager:Initialiser): " + tempPath.getCPos() + " | "  + tempPath.getRPos() + " | " + pathGroupNo);
-                createNewPlanter(tempPath.getX(true) - 16, tempPath.getY(true) - 16, tempPath.getCPos(), tempPath.getRPos(), pathGroupNo); //ToDo: These coordinates are TEMPORARY!
+                createNewPlanter(tempPath.getX(true) - 16, tempPath.getY(true) - 16, tempPath.getCPos(), tempPath.getRPos(), pathGroupNo, i); //ToDo: These coordinates are TEMPORARY!
                 pathGroupNo++;
             }
         }
     }
 
-    public boolean createNewPlanter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo){
+    public boolean createNewPlanter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo, int id){
         try {
-            planters.add(new Planter(xPos, yPos, cPos, rPos, pathGroupNo));
+            planters.add(new Planter(xPos, yPos, cPos, rPos, pathGroupNo, id));
             return true;
         }
         catch (Exception error){
@@ -57,13 +57,9 @@ public class PlanterManager implements disposable{
         planters.get(planterID).setTargetPosition(new int[]{column, row}, startMoving);
     }
 
-    /*public void updatePlanterMovingToTarget(boolean startMoving, int planterID){
-        planters.get(planterID).setMovingToTarget(startMoving);
-    }*/
-
-    public void updateAllPlanters(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font){
+    public void updateAllPlanters(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font, PlantHandler plantHandler){
         for (int i = 0; i < planters.size; i++){
-            planters.get(i).update(spriteBatch, planterPathCreator, font);
+            planters.get(i).update(spriteBatch, planterPathCreator, font, plantHandler);
         }
     }
 

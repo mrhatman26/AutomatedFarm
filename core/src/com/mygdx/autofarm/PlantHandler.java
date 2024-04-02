@@ -1,23 +1,28 @@
 package com.mygdx.autofarm;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
 
+import java.awt.*;
+
 public class PlantHandler implements disposable{
-    private static Array<Plant> plants;
+    private Array<Plant> plants;
     PlantHandler(){
         this.plants = new Array<Plant>();
     }
 
-    public static Plant createNewPlant(int pathGroupNo, int x, int y, int[] position, int creationDirection){
-        //Todo: Have the new plant's position be set in the creator. This doesn't say where the plant should be!
+    public Plant createNewPlant(int pathGroupNo, int x, int y, int[] position, int creationDirection, int planterId){
         try {
-            Plant tempPlant = new Plant(4000, 2000, 3000, 10000, 100, pathGroupNo, x, y, position, creationDirection);
+            staticMethods.systemMessage("PlantHandler", null, "Attempting to create a new plant...", true);
+            Plant tempPlant = new Plant(4000, 2000, 3000, 10000, 100, pathGroupNo, x, y, position, creationDirection, planterId);
             plants.add(tempPlant);
+            staticMethods.systemMessage("PlantHandler", null, "Plant created successfully", true);
             return tempPlant;
         }
         catch (Exception error){
-            System.out.println("(PlantHandler.java): An error occurred when trying to create a new instance of the Plant class.");
+            staticMethods.systemMessage("PlantHandler", null, "An error occurred when trying to create a new instance of the Plant class.", true);
             error.printStackTrace();
             return null;
         }
@@ -49,10 +54,37 @@ public class PlantHandler implements disposable{
         }
     }
 
-    public void updateAllPlants(Batch spriteBatch){
+    public Array<Plant> getPlanterPlants(int planterId){
+        Array<Plant> planterPlants = new Array<>();
+        for (Plant plant: plants){
+            if (plant.getPlanterId() == planterId){
+                planterPlants.add(plant);
+            }
+        }
+        return planterPlants;
+    }
+
+    public boolean plantNeedsMaintaining(int planterId){
+        for (Plant plant: plants){
+            if (plant.getPlanterId() == planterId){
+                if (plant.getWateringTimer() < 1){
+                    return true;
+                }
+                if (plant.getFeedingTimer() < 1){
+                    return true;
+                }
+                if (plant.getHarvestingTimer() < 1){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void updateAllPlants(Batch spriteBatch, BitmapFont font) {
         if (plants != null){
             for (int i = 0; i < plants.size; i++){
-                plants.get(i).update(spriteBatch);
+                plants.get(i).update(spriteBatch, font);
             }
         }
     }

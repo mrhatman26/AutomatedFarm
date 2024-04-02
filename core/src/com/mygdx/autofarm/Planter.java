@@ -13,13 +13,13 @@ public class Planter implements disposable {
     private String className = Thread.currentThread().getStackTrace()[1].getClassName().replace("com.mygdx.autofarm.", "");//"Planter";
     private String methodName = "";
     private int[] position, targetPosition;
-    private boolean[] directionsChecked;
-    private int pathGroupNo, moveTimer, failedPlantCount;
+    private int pathGroupNo, moveTimer, failedPlantCount, id;
     private static final int MOVE_TIMER_MAX = 25;
-    private boolean override, movingToTarget, movingRow, movingColumn, tempBool, targetOnRow;
+    private boolean override, movingToTarget, movingRow, movingColumn, tempBool, targetOnRow, wow;
     private Texture sprite, targetSprite;
-    private Array<Plant> myPlants;
-    public Planter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo){
+    private int[] tempPos;
+
+    public Planter(int xPos, int yPos, int cPos, int rPos, int pathGroupNo, int id){
         this.position = new int[2];
         this.position[0] = cPos;
         this.position[1] = rPos;
@@ -32,17 +32,17 @@ public class Planter implements disposable {
         this.planterRect.width = 64;
         this.planterRect.height = 64;
         this.pathGroupNo = pathGroupNo;
+        this.id = id;
         this.movingToTarget = false;
         this.movingRow = false;
         this.movingColumn = true;
         this.targetOnRow = false;
         this.tempBool = true;
-        this.myPlants = new Array<Plant>();
         this.moveTimer = MOVE_TIMER_MAX;
-        this.directionsChecked = new boolean[4];
         this.failedPlantCount = 0;
+        this.tempPos = new int[2];
+        this.wow = false;
     }
-
 
     public void setTargetPosition(int[] newTargetPos, boolean startMoving){
         methodName = Thread.currentThread().getStackTrace()[1].getMethodName(); //https://stackoverflow.com/questions/7495249/get-the-name-of-the-current-method-being-executed
@@ -205,35 +205,15 @@ public class Planter implements disposable {
         }
     }
 
-    private boolean plantNeedsMaintaining(){
-        if (myPlants != null) {
-            for (int i = 0; i < myPlants.size; i++){
-                if (myPlants.get(i).getWateringTimer() < 1){
-                    return true; //At least one plant needs watering.
-                }
-                if (myPlants.get(i).getFeedingTimer() < 1){
-                    return true;
-                }
-                if (myPlants.get(i).getHarvestingTimer() < 1){
-                    return true;
-                }
-            }
-            return false; //None of my plants need watering.
-        }
-        else{
-            return false; //I have no plants.
-        }
-    }
-
-    private boolean checkPlantOnPos(int creationDirection){
-        methodName = Thread.currentThread().getStackTrace()[1].getMethodName();//"checkPlantOnPos";
+    private boolean checkPlantOnPos(int creationDirection, PlantHandler plantHandler){
+        methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         staticMethods.systemMessage(className, methodName, "Position to check: C" + position[0] + " | R" + position[1], true);
         staticMethods.systemMessage(className, methodName, "Direction to check: " + creationDirection, true);
         Plant tempPlant;
-        for (int i = 0; i < myPlants.size; i++){
+        for (int i = 0; i < plantHandler.getPlanterPlants(id).size; i++){
             System.out.println(i);
             staticMethods.systemMessage(className, methodName, "i = " + i, true);
-            tempPlant = myPlants.get(i);
+            tempPlant = plantHandler.getPlanterPlants(id).get(i);
             staticMethods.systemMessage(className, methodName, "tempPlant position: C" + tempPlant.getPosition()[0] + " | R" + tempPlant.getPosition()[1], true);
             if (tempPlant.getPosition() == position && tempPlant.getCreationDirection() == creationDirection){
                 staticMethods.systemMessage(className, methodName, "Plant found. Direction is NOT clear.", true);
@@ -244,26 +224,29 @@ public class Planter implements disposable {
         return false;
     }
 
-    private boolean tryPlanting(PlanterPathCreator planterPathCreator, boolean checkForOtherPlants){
+    private boolean tryPlanting(PlanterPathCreator planterPathCreator, boolean checkForOtherPlants, PlantHandler plantHandler){
         methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         staticMethods.systemMessage(className, methodName, "checkForOtherPlants = " + String.valueOf(checkForOtherPlants), true);
-        //int emptySpace = planterPathCreator.checkForEmptySpace(position[1], position[0], pathGroupNo);
         Plant tempPlant = null;
         for (int i = 1; i < 5; i++){ //i in this case is the direction to check.
-            staticMethods.systemMessage(className, methodName, "Direction(i) is " + i + "\nFirst check is " + String.valueOf(planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i)) + "\nSecond check is " + String.valueOf(checkPlantOnPos(i)), true);
-            if (planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i) && !checkPlantOnPos(i)){
+            staticMethods.systemMessage(className, methodName, "Direction(i) is " + i + "\nFirst check is " + String.valueOf(planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i)) + "\nSecond check is " + String.valueOf(checkPlantOnPos(i, plantHandler)), true);
+            if (planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i) && !checkPlantOnPos(i, plantHandler)){
                 switch (i){
                     case 1:
-                        tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, position, 1); //Create a new plant to the top.
+                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, position, 1, id); //Create a new plant to the top.
+                        staticMethods.systemMessage(className, methodName, "New plant created", true);
                         break;
                     case 2:
-                        tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, position, 2); //Create a new plant to the bottom.
+                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, position, 2, id); //Create a new plant to the bottom.
+                        staticMethods.systemMessage(className, methodName, "New plant created", true);
                         break;
                     case 3:
-                        tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 3); //Create a new plant to the left.
+                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 3, id); //Create a new plant to the left.
+                        staticMethods.systemMessage(className, methodName, "New plant created", true);
                         break;
                     case 4:
-                        tempPlant = PlantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, position, 4); //Create a new plant to the right.
+                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, position, 4, id); //Create a new plant to the right.
+                        staticMethods.systemMessage(className, methodName, "New plant created", true);
                         break;
                     default:
                         staticMethods.systemMessage(className, methodName, "Something went wrong when trying to check if the directions are empty", false);
@@ -273,14 +256,20 @@ public class Planter implements disposable {
         }
         if (tempPlant != null) {
             failedPlantCount = 0;
-            myPlants.add(tempPlant);
             return false;
         }
         else{
             failedPlantCount++;
+            staticMethods.systemMessage(className, methodName, "Failed to create Plant. failedPlantCounter is now " + failedPlantCount, true);
             if (failedPlantCount >= 4){
+                staticMethods.systemMessage(className, methodName, "failedPlantCounter was more than or equal to 4. Moving and resetting the value to 0", true);
                 if (position[1] == 1 || position[1] == planterPathCreator.getRowSize()){
                     setTargetPosition(new int[]{position[0] + 1, position[1]}, true);
+                    for (Plant plant: plantHandler.getPlanterPlants(id)){
+                        System.out.println("R" + plant.getPosition()[1] + " | C" + plant.getPosition()[0]);
+                        tempPos = plant.getPosition();
+                        wow = true;
+                    }
                     failedPlantCount = 0;
                 }
             }
@@ -288,23 +277,23 @@ public class Planter implements disposable {
         }
     }
 
-    public void update(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font){
+    public void update(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font, PlantHandler plantHandler){
         //Processing?
         if (!movingToTarget) {
-            if (myPlants.size < 1) { //If I have no plants, plant one.
+            if (plantHandler.getPlanterPlants(id).size <= 0) { //If I have no plants, plant one.
                 if (position[1] != 1 && position[0] != 1) { //If I am not at my starting position already, move there. //ToDo: Why go back to the start specifically?
                     setTargetPosition(new int[]{1, 1}, true);
                 }
                 else{
-                    tryPlanting(planterPathCreator, false);
+                    tryPlanting(planterPathCreator, false, plantHandler);
                 }
             }
             else{
-                if (plantNeedsMaintaining()){ //Check if any of my plants needs maintaining. (Watering, feeding or harvesting)
+                if (plantHandler.plantNeedsMaintaining(id)){ //Check if any of my plants needs maintaining. (Watering, feeding or harvesting)
                     System.out.println("TBD");
                 }
                 else{ //All plants are fine so plant some more.
-                    tryPlanting(planterPathCreator, true);
+                    tryPlanting(planterPathCreator, true, plantHandler);
                 }
             }
         }
@@ -312,8 +301,6 @@ public class Planter implements disposable {
         if (movingToTarget){
             PlanterPath tempPath = planterPathCreator.getPathFromPos(targetPosition[1], targetPosition[0], pathGroupNo);
             spriteBatch.draw(targetSprite, tempPath.getX(true) - 11, tempPath.getY(true) - 11);
-        }
-        if (movingToTarget){
             moveToTarget(false, planterPathCreator);
         }
         spriteBatch.draw(sprite, planterRect.x, planterRect.y);
@@ -327,15 +314,14 @@ public class Planter implements disposable {
         }
         if (AutoFarm.debug) {
             //font.draw(spriteBatch, String.valueOf(targetOnRow), planterRect.x, planterRect.y + 32);
-            font.draw(spriteBatch, String.valueOf(myPlants.size), planterRect.x - 32, planterRect.y);
+            font.draw(spriteBatch, String.valueOf(plantHandler.getPlanterPlants(id).size), planterRect.x - 32, planterRect.y);
             font.draw(spriteBatch, String.valueOf(failedPlantCount), planterRect.x + 48, planterRect.y);
+            font.draw(spriteBatch, "R" + position[1] + " | C" + position[0], planterRect.x - 8, planterRect.y + 48);
         }
     }
 
     public void dispose(){
         sprite.dispose();
         targetSprite.dispose();
-        myPlants.clear();
-        myPlants = null;
     }
 }

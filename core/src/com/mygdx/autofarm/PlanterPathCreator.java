@@ -175,15 +175,6 @@ public class PlanterPathCreator {
         return null;
     }
 
-    public boolean checkIfColumnOrRow(int pathGroup, int row, int column){
-        if (row == 0 || row == columnSize){
-            return true; //The position is on a row column. (A column where it can go up)
-        }
-        else{
-            return false;
-        } //ToDo: Modify this so it works vice versa for columns.
-    }
-
     public boolean deleteAllPlanterPaths(){
         try{
             for (int i = 0; i < planterPaths.size; i++){
@@ -193,7 +184,7 @@ public class PlanterPathCreator {
             return true;
         }
         catch (Exception error){
-            //System.out.println("(PlanterPathCreator.java): An error occurred when trying to delete all instances of the PlanterPath class");
+            staticMethods.systemMessage(className, Thread.currentThread().getStackTrace()[1].getMethodName(), "An error occurred when trying to delete all instances of the PlanterPath class", false);
             error.printStackTrace();
             return false;
         }

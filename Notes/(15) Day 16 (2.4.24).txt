@@ -1,0 +1,19 @@
+Day 16 Notes:
+Started at 9:00am.
+-9:30: I was trying to figure out why my planters are only creating 3 Plants.
+	>I am really dumb.
+	>Somehow... The planters are constantly updating Plant positions to their own?
+	>WHY?! -_-
+-10:00: I've been looking at this for a while now. Little progress.
+	>moveToTarget seems to be overriding Plant positions?
+	>Plant positions are private so Planters should not be able to change them.
+	>There is also NO method to change them apart from the initiliser.
+	>If Planters are moving to a target, the code to create Plants is ignored anyway?
+	>Whaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-?
+-11:00: STILL CAN'T FIND THE PROBLEM >:|
+-11:30: STILL NOTHING.
+	>I've had a thought though... Why not do away with myPlants?
+	>It might help, it probably won't though.
+	>Worthy a try I guess.
+-12:00: The thing I tried didn't fix the bug. How surprising /s.
+	>To quote my neighbour just now: "It's not going to work".
