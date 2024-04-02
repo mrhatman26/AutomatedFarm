@@ -29,3 +29,6 @@ Started at 9:00am.
 	>-_-
 -15:30: Too distracted...
 	>Added a timer to Planters creating Plants.
+-15:49: Planters now go all the way around the paths to find available spaces for Plants.
+	>Holy hell, this worked way too quickly.
+	>What will screw it up?

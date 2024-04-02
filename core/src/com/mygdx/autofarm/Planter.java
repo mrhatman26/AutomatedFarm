@@ -264,14 +264,40 @@ public class Planter implements disposable {
                 staticMethods.systemMessage(className, methodName, "Failed to create Plant. failedPlantCounter is now " + failedPlantCount, true);
                 if (failedPlantCount >= 4) {
                     staticMethods.systemMessage(className, methodName, "failedPlantCounter was more than or equal to 4. Moving and resetting the value to 0", true);
-                    if (position[1] == 1 || position[1] == planterPathCreator.getRowSize()) {
+                    /*if (position[1] == 1 || position[1] == planterPathCreator.getRowSize()) {
                         setTargetPosition(new int[]{position[0] + 1, position[1]}, true);
-                        /*for (Plant plant : plantHandler.getPlanterPlants(id)) {
-                            System.out.println("R" + plant.getPosition()[1] + " | C" + plant.getPosition()[0]);
-                            tempPos = plant.getPosition();
-                        }*/
                         failedPlantCount = 0;
+                    }*/
+                    if (position[1] == 1){ //Bottom
+                        if (position[0] < planterPathCreator.getColumnSize()) { //Is it before the last column?
+                            setTargetPosition(new int[]{position[0] + 1, position[1]}, true);
+                        }
+                        else{ //If in the last column, go up
+                            setTargetPosition(new int[]{position[0], position[1] + 1}, true);
+                        }
                     }
+                    if (position[0] == planterPathCreator.getColumnSize()){ //Right
+                        if (position[1] < planterPathCreator.getRowSize()) { //Is it before the last row?
+                            setTargetPosition(new int[]{position[0], position[1] + 1}, true);
+                        }
+                        else{
+                            setTargetPosition(new int[]{position[0] - 1, position[1]}, true);
+                        }
+                    }
+                    if (position[1] == planterPathCreator.getRowSize()){ //Top
+                        if (position[0] > 1){
+                            setTargetPosition(new int[]{position[0] - 1, position[1]}, true);
+                        }
+                        else{
+                            setTargetPosition(new int[]{position[0], position[1] - 1}, true);
+                        }
+                    }
+                    if (position[0] == 1){
+                        if (position[1] > 1){
+                            setTargetPosition(new int[]{position[0], position[1] - 1}, true);
+                        }
+                    }
+                    failedPlantCount = 0;
                 }
                 plantingTimer = PLANTING_TIMER_MAX;
                 return true;
