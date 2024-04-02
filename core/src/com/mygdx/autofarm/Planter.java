@@ -214,7 +214,7 @@ public class Planter implements disposable {
             staticMethods.systemMessage(className, methodName, "i = " + i, true);
             tempPlant = plantHandler.getPlanterPlants(id).get(i);
             staticMethods.systemMessage(className, methodName, "tempPlant position: C" + tempPlant.getPosition()[0] + " | R" + tempPlant.getPosition()[1], true);
-            if (tempPlant.getPosition() == position && tempPlant.getCreationDirection() == creationDirection){
+            if (tempPlant.getPosition()[0] == position[0] && tempPlant.getPosition()[1] == position[1] && tempPlant.getCreationDirection() == creationDirection){
                 staticMethods.systemMessage(className, methodName, "Plant found. Direction is NOT clear.", true);
                 return true;
             }
@@ -232,19 +232,19 @@ public class Planter implements disposable {
             if (planterPathCreator.checkIfSpaceIsEmpty(position[1], position[0], pathGroupNo, i) && !checkPlantOnPos(i, plantHandler)){
                 switch (i){
                     case 1:
-                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, position, 1, id); //Create a new plant to the top.
+                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y + 48, new int[]{position[0], position[1]}, 1, id); //Create a new plant to the top.
                         staticMethods.systemMessage(className, methodName, "New plant created", true);
                         break;
                     case 2:
-                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, position, 2, id); //Create a new plant to the bottom.
+                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 8, planterRect.y - 16, new int[]{position[0], position[1]}, 2, id); //Create a new plant to the bottom.
                         staticMethods.systemMessage(className, methodName, "New plant created", true);
                         break;
                     case 3:
-                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, position, 3, id); //Create a new plant to the left.
+                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x - 16, planterRect.y + 8, new int[]{position[0], position[1]}, 3, id); //Create a new plant to the left.
                         staticMethods.systemMessage(className, methodName, "New plant created", true);
                         break;
                     case 4:
-                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, position, 4, id); //Create a new plant to the right.
+                        tempPlant = plantHandler.createNewPlant(pathGroupNo, planterRect.x + 48, planterRect.y + 8, new int[]{position[0], position[1]}, 4, id); //Create a new plant to the right.
                         staticMethods.systemMessage(className, methodName, "New plant created", true);
                         break;
                     default:

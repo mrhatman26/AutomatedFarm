@@ -17,3 +17,13 @@ Started at 9:00am.
 	>Worthy a try I guess.
 -12:00: The thing I tried didn't fix the bug. How surprising /s.
 	>To quote my neighbour just now: "It's not going to work".
+-14:50: Damnit.
+	>I fixed the bug but...
+	>It was something so simple...
+	>That's four hours down the drain.
+	>The problem was that I was passing the position object, rather than its values.
+	>So what was:
+		->position
+	>Should have been:
+		->new int[]{position[0], position[1]}
+	>-_-
