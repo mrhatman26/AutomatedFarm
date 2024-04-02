@@ -14,6 +14,7 @@ public class Plant implements disposable{
     private boolean grown, failed;
     private Texture sprite;
     private Rectangle plantRect;
+    private static int accessCount = 0;
     Plant(int harvestingTimer, int wateringTimer, int feedingTimer, int dyingTimer, int value, int pathGroupNo, int x, int y, int[] position, int creationDirection, int planterId){
         this.harvestingTimer = harvestingTimer;
         this.wateringTimer = wateringTimer;
@@ -32,6 +33,8 @@ public class Plant implements disposable{
         this.creationDirection = creationDirection;
         this.planterId = planterId;
         this.sprite = staticMethods.spriteTest(Gdx.files.internal("sprPlant.png"));
+        accessCount++;
+        staticMethods.systemMessage("Plant", null, "Plant initiliser has been accessed " + accessCount + " time(s).", true);
     }
 
     public int getPlanterId(){

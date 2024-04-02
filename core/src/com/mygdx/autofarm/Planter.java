@@ -15,7 +15,7 @@ public class Planter implements disposable {
     private int[] position, targetPosition;
     private int pathGroupNo, moveTimer, failedPlantCount, id;
     private static final int MOVE_TIMER_MAX = 25;
-    private boolean override, movingToTarget, movingRow, movingColumn, tempBool, targetOnRow, wow;
+    private boolean override, movingToTarget, movingRow, movingColumn, tempBool, targetOnRow;
     private Texture sprite, targetSprite;
     private int[] tempPos;
 
@@ -41,7 +41,6 @@ public class Planter implements disposable {
         this.moveTimer = MOVE_TIMER_MAX;
         this.failedPlantCount = 0;
         this.tempPos = new int[2];
-        this.wow = false;
     }
 
     public void setTargetPosition(int[] newTargetPos, boolean startMoving){
@@ -268,7 +267,6 @@ public class Planter implements disposable {
                     for (Plant plant: plantHandler.getPlanterPlants(id)){
                         System.out.println("R" + plant.getPosition()[1] + " | C" + plant.getPosition()[0]);
                         tempPos = plant.getPosition();
-                        wow = true;
                     }
                     failedPlantCount = 0;
                 }
