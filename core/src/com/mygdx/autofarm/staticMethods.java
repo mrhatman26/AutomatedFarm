@@ -1,5 +1,7 @@
 package com.mygdx.autofarm;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -95,6 +97,12 @@ public class staticMethods {
 
     public static int getRandom(int max, int min){
         return (int)(Math.random() * (max - min) + min);
+    }
+
+    public static void miscControls(){
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            System.exit(0);
+        }
     }
 }
 

@@ -1,0 +1,5 @@
+Day 17 Notes:
+Started at 10:00am.
+-11:10: Plants can now be harvested.
+	>Surprisingly easy to implement.
+	>I wonder what I did wrong then.

@@ -17,6 +17,7 @@ public class AutoFarm extends ApplicationAdapter {
 	private PlanterManager planterManager;
 	private PlanterPathCreator planterPathCreator;
 	private BitmapFont font;
+	private static int money;
 
 	@Override
 	public void create () {
@@ -27,7 +28,12 @@ public class AutoFarm extends ApplicationAdapter {
 		this.planterPathCreator = new PlanterPathCreator();
 		this.planterManager = new PlanterManager(planterPathCreator);
 		this.plantHandler = new PlantHandler();
+		money = 1000;
 		font = new BitmapFont();
+	}
+
+	public static void increaseMoney(int addition){
+		money = money + addition;
 	}
 
 	@Override
@@ -38,9 +44,10 @@ public class AutoFarm extends ApplicationAdapter {
 		planterPathCreator.updateAllPlanterPaths(batch, font);
 		plantHandler.updateAllPlants(batch, font);
 		planterManager.updateAllPlanters(batch, planterPathCreator, font, plantHandler);
-		//planterManager.updatePlanterTargetPos(13, 7, true, 0);
+		font.draw(batch, "Money: " + String.valueOf(money), 40, 550);
 		batch.end();
 		camera.update();
+		staticMethods.miscControls();
 	}
 
 	@Override

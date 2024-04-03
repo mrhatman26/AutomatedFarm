@@ -18,6 +18,7 @@ public class PlantHandler implements disposable{
             staticMethods.systemMessage("PlantHandler", null, "Attempting to create a new plant...", true);
             Plant tempPlant = new Plant(pathGroupNo, x, y, position, creationDirection, planterId);
             plants.add(tempPlant);
+            tempPlant.setId(plants.size);
             staticMethods.systemMessage("PlantHandler", null, "Plant created successfully", true);
             return tempPlant;
         }
@@ -85,6 +86,18 @@ public class PlantHandler implements disposable{
         if (plants != null){
             for (int i = 0; i < plants.size; i++){
                 plants.get(i).update(spriteBatch, font);
+            }
+        }
+    }
+
+    public void harvestPlant(int id){
+        Plant tempPlant = null;
+        for (int i = 0; i < plants.size; i++){
+            tempPlant = plants.get(i);
+            if (tempPlant.getId() == id){
+                AutoFarm.increaseMoney(tempPlant.getValue());
+                tempPlant.dispose();
+                plants.removeIndex(i);
             }
         }
     }

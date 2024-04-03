@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.awt.*;
 
 public class Plant implements disposable{
-    private int harvestingTimer, wateringTimer, feedingTimer, dyingTimer, value, pathGroupNo, creationDirection, planterId;
+    private int harvestingTimer, wateringTimer, feedingTimer, dyingTimer, value, pathGroupNo, creationDirection, planterId, id;
     private int[] position;
     private boolean grown, failed;
     private Texture sprite, spriteThirsty, spriteHungry, spriteThirstyAndHugnry, spriteDead, spriteFinished;
@@ -32,6 +32,7 @@ public class Plant implements disposable{
         this.position = position;
         this.creationDirection = creationDirection;
         this.planterId = planterId;
+        this.id = -1;
         this.sprite = staticMethods.spriteTest(Gdx.files.internal("sprPlant.png"));
         this.spriteThirsty = staticMethods.spriteTest(Gdx.files.internal("sprPlantThirsty.png"));
         this.spriteHungry = staticMethods.spriteTest(Gdx.files.internal("sprPlantHungry.png"));
@@ -62,6 +63,14 @@ public class Plant implements disposable{
         return this.dyingTimer;
     }
 
+    public boolean getGrown(){
+        return this.grown;
+    }
+
+    public boolean getFailed(){
+        return this.failed;
+    }
+
     public int getPathGroupNo(){
         return this.pathGroupNo;
     }
@@ -72,6 +81,18 @@ public class Plant implements disposable{
 
     public int getCreationDirection(){
         return this.creationDirection;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public int getValue(){
+        return this.value;
+    }
+
+    public void setId(int newId){
+        this.id = newId;
     }
 
     public void resetWateringTimer(){
@@ -90,21 +111,24 @@ public class Plant implements disposable{
             if (this.feedingTimer >= 1) {
                 this.feedingTimer--;
             }
-            this.harvestingTimer++;
+            this.harvestingTimer--;
             if (this.wateringTimer < 1 || this.feedingTimer < 1) {
                 this.dyingTimer--;
                 if (this.dyingTimer < 1) {
                     this.failed = true;
                 }
             }
-            if (this.harvestingTimer > 10000) {
+            if (this.harvestingTimer < 1) {
                 this.grown = true;
             }
         }
     }
 
     public void update(Batch spriteBatch, BitmapFont font) {
-        if (wateringTimer < 1 && feedingTimer < 1){
+        if (this.grown){
+            spriteBatch.draw(spriteFinished, plantRect.x, plantRect.y);
+        }
+        else if (wateringTimer < 1 && feedingTimer < 1){
             spriteBatch.draw(spriteThirstyAndHugnry, plantRect.x, plantRect.y);
         }
         else if (wateringTimer < 1){
@@ -120,7 +144,8 @@ public class Plant implements disposable{
         if (AutoFarm.debug){
             //font.draw(spriteBatch, "R" + this.position[1] + " | C" + this.position[0], plantRect.x - 8, plantRect.y + 24);
             //font.draw(spriteBatch, String.valueOf(creationDirection), plantRect.x + 4, plantRect.y - 8);
-            font.draw(spriteBatch, "WT" + String.valueOf(wateringTimer) + " | FT" + feedingTimer + " | HT" + harvestingTimer + " | DT" + dyingTimer, plantRect.x - 8, plantRect.y + 24);
+            //font.draw(spriteBatch, "WT" + String.valueOf(wateringTimer) + " | FT" + feedingTimer + " | HT" + harvestingTimer + " | DT" + dyingTimer, plantRect.x - 8, plantRect.y + 24);
+            font.draw(spriteBatch, String.valueOf(harvestingTimer), plantRect.x, plantRect.y + 24);
         }
     }
 
