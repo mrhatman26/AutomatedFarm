@@ -3,3 +3,9 @@ Started at 10:00am.
 -11:10: Plants can now be harvested.
 	>Surprisingly easy to implement.
 	>I wonder what I did wrong then.
+-11:20: Plants can now be cleared when "failed".
+	>Basically the same code as the last bit.
+	>I think I may have seen a problem with this code,
+	but unless this problem occurs, I'll save what I think
+	might be the solution. (Which means I'll probably forget about it)
+

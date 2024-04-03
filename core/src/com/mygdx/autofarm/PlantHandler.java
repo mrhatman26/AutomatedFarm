@@ -102,6 +102,17 @@ public class PlantHandler implements disposable{
         }
     }
 
+    public void clearPlant(int id){
+        Plant tempPlant;
+        for (int i = 0; i < plants.size; i++){
+            tempPlant = plants.get(i);
+            if (tempPlant.getId() == id){
+                tempPlant.dispose();
+                plants.removeIndex(i);
+            }
+        }
+    }
+
     public void dispose(){
         for (int i = 0; i < plants.size; i++){
             plants.get(i).dispose();

@@ -333,6 +333,9 @@ public class Planter implements disposable {
                         maintainTimer--;
                         if (maintainTimer < 1){
                             maintainTimer = MAINTAIN_TIMER_MAX;
+                            if (targetPlant.getFailed()){
+                                plantHandler.clearPlant(targetPlant.getPlanterId());
+                            }
                             if (targetPlant.getGrown()){
                                 plantHandler.harvestPlant(targetPlant.getId());
                             }
