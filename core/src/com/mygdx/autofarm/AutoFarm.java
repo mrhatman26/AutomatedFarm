@@ -43,7 +43,7 @@ public class AutoFarm extends ApplicationAdapter {
 	}
 
 	public static void increaseMoneyOut(int subtraction){
-		moneyOut = moneyOut + moneyOut;
+		moneyOut = moneyOut + subtraction;
 	}
 
 	@Override

@@ -11,3 +11,6 @@ Started at 10am.
 	of the object that caused it and fades away.
 	>E.G: If a Plant is harvested, its value will appear as green text a slowly
 	floating up and fading away. Waste of time yes, but I thought it'd be cool.
+-11:20: Planters now periodically add a random amount to moneyOut.
+	>What is odd, is that, even when moneyOut is reset to 0 when the money timer runs out,
+	the planters add to moneyOut so quickly you don't really see the 0.

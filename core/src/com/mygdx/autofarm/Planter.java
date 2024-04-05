@@ -13,10 +13,11 @@ public class Planter implements disposable {
     private String className = Thread.currentThread().getStackTrace()[1].getClassName().replace("com.mygdx.autofarm.", "");//"Planter";
     private String methodName = "";
     private int[] position, targetPosition;
-    private int pathGroupNo, moveTimer, failedPlantCount, id, plantingTimer, maintainTimer;
+    private int pathGroupNo, moveTimer, failedPlantCount, id, plantingTimer, maintainTimer, runningCosts, runningCostsTimer;
     private static final int MOVE_TIMER_MAX = 25;
     private static final int PLANTING_TIMER_MAX = 25;
     private static final int MAINTAIN_TIMER_MAX = 20;
+    private static final int RUNNING_COSTS_TIMER_MAX = 500;
     private boolean override, movingToTarget, movingRow, movingColumn, tempBool, targetOnRow;
     private Texture sprite, targetSprite;
     private Plant targetPlant;
@@ -45,6 +46,8 @@ public class Planter implements disposable {
         this.plantingTimer = PLANTING_TIMER_MAX;
         this.targetPlant = null;
         this.maintainTimer = MAINTAIN_TIMER_MAX;
+        this.runningCostsTimer = RUNNING_COSTS_TIMER_MAX;
+        this.runningCosts = staticMethods.getRandom(1000, 50);
     }
 
     public void setTargetPosition(int[] newTargetPos, boolean startMoving){
@@ -313,6 +316,14 @@ public class Planter implements disposable {
     }
 
     public void update(Batch spriteBatch, PlanterPathCreator planterPathCreator, BitmapFont font, PlantHandler plantHandler){
+        //Running Costs
+        runningCostsTimer--;
+        if (runningCostsTimer < 1){
+            runningCostsTimer = RUNNING_COSTS_TIMER_MAX;
+            AutoFarm.increaseMoneyOut(runningCosts);
+            FloatingTextHandler.createNewFloatingText("-£" + runningCosts, planterRect.x, planterRect.y + 48, 255, 0, 0);
+            runningCosts = staticMethods.getRandom(1000, 50);
+        }
         //Processing?
         if (!movingToTarget) {
             if (plantHandler.getPlanterPlants(id).size <= 0) { //If I have no plants, plant one.
@@ -374,6 +385,7 @@ public class Planter implements disposable {
             font.draw(spriteBatch, String.valueOf(plantHandler.getPlanterPlants(id).size), planterRect.x - 32, planterRect.y);
             font.draw(spriteBatch, String.valueOf(failedPlantCount), planterRect.x + 48, planterRect.y);
             font.draw(spriteBatch, "R" + position[1] + " | C" + position[0], planterRect.x - 8, planterRect.y + 48);
+            font.draw(spriteBatch, String.valueOf(runningCostsTimer), planterRect.x, planterRect.y - 16);
         }
     }
 
