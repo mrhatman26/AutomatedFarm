@@ -17,7 +17,8 @@ public class AutoFarm extends ApplicationAdapter {
 	private PlanterManager planterManager;
 	private PlanterPathCreator planterPathCreator;
 	private BitmapFont font;
-	private static int money;
+	private static int money, moneyIn, moneyOut, moneyTimer;
+	private static final int MONEY_TIMER_MAX = 1000;
 
 	@Override
 	public void create () {
@@ -29,22 +30,42 @@ public class AutoFarm extends ApplicationAdapter {
 		this.planterManager = new PlanterManager(planterPathCreator);
 		this.plantHandler = new PlantHandler();
 		money = 1000;
+		moneyIn = 0;
+		moneyOut = 0;
+		moneyTimer = MONEY_TIMER_MAX;
 		font = new BitmapFont();
 	}
 
-	public static void increaseMoney(int addition){
-		money = money + addition;
+	public static void increaseMoneyIn(int addition){
+		moneyIn = moneyIn + addition;
+	}
+
+	public static void increaseMoneyOut(int subtraction){
+		moneyOut = moneyOut + moneyOut;
 	}
 
 	@Override
 	public void render () {
+		moneyTimer--;
+		if (moneyTimer < 1){
+			moneyTimer = MONEY_TIMER_MAX;
+			money = money + moneyIn;
+			money = money - moneyOut;
+			moneyIn = 0;
+			moneyOut = 0;
+		}
 		ScreenUtils.clear(0, 0, 0, 1);
 		batch.begin();
 		batch.draw(background, 0, 0);
 		planterPathCreator.updateAllPlanterPaths(batch, font);
 		plantHandler.updateAllPlants(batch, font);
 		planterManager.updateAllPlanters(batch, planterPathCreator, font, plantHandler);
-		font.draw(batch, "Money: " + String.valueOf(money), 40, 550);
+		if (debug) {
+			font.draw(batch, "Money: £" + String.valueOf(money) + "\nMoney In: +£" + String.valueOf(moneyIn) + "\nMoney Out: -£" + String.valueOf(moneyOut) + "\nMoney Timer: " + String.valueOf(moneyTimer), 40, 550);
+		}
+		else{
+			font.draw(batch, "Money: £" + String.valueOf(money) + "\nMoney In: +£" + String.valueOf(moneyIn) + "\nMoney Out: -£" + String.valueOf(moneyOut), 40, 550);
+		}
 		batch.end();
 		camera.update();
 		staticMethods.miscControls();

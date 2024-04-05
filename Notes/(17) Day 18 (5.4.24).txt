@@ -1,0 +1,8 @@
+Day 18 Notes:
+Started at 10am.
+-10:18: Money is now added after a timer has elapsed.
+	>Money is also deducted too. But nothing generates costs.
+	>Money is added to a variable called "moneyIn" by the PlantHandler
+	when a Planter harvests a Plant. After the money timer reaches zero,
+	this money is added to the overal total.
+

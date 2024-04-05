@@ -95,7 +95,7 @@ public class PlantHandler implements disposable{
         for (int i = 0; i < plants.size; i++){
             tempPlant = plants.get(i);
             if (tempPlant.getId() == id){
-                AutoFarm.increaseMoney(tempPlant.getValue());
+                AutoFarm.increaseMoneyIn(tempPlant.getValue());
                 tempPlant.dispose();
                 plants.removeIndex(i);
             }
