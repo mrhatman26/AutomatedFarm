@@ -5,4 +5,9 @@ Started at 10am.
 	>Money is added to a variable called "moneyIn" by the PlantHandler
 	when a Planter harvests a Plant. After the money timer reaches zero,
 	this money is added to the overal total.
-
+-11:02: Added two new classes.
+	>They are called "FloatingText" and "FloatingTextHandler".
+	>Basically, when money is added or removed, the value of that change floats out
+	of the object that caused it and fades away.
+	>E.G: If a Plant is harvested, its value will appear as green text a slowly
+	floating up and fading away. Waste of time yes, but I thought it'd be cool.

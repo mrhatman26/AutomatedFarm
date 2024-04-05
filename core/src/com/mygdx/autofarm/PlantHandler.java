@@ -96,6 +96,7 @@ public class PlantHandler implements disposable{
             tempPlant = plants.get(i);
             if (tempPlant.getId() == id){
                 AutoFarm.increaseMoneyIn(tempPlant.getValue());
+                FloatingTextHandler.createNewFloatingText("£" + tempPlant.getValue(), tempPlant.getPlantX(), tempPlant.getPlantY(), 0, 255, 0);
                 tempPlant.dispose();
                 plants.removeIndex(i);
             }

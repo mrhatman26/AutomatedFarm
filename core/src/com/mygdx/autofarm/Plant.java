@@ -43,6 +43,14 @@ public class Plant implements disposable{
         staticMethods.systemMessage("Plant", null, "Plant initiliser has been accessed " + accessCount + " time(s).", true);
     }
 
+    public int getPlantX(){
+        return this.plantRect.x;
+    }
+
+    public int getPlantY(){
+        return this.plantRect.y;
+    }
+
     public int getPlanterId(){
         return this.planterId;
     }
