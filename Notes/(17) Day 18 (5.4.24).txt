@@ -14,3 +14,9 @@ Started at 10am.
 -11:20: Planters now periodically add a random amount to moneyOut.
 	>What is odd, is that, even when moneyOut is reset to 0 when the money timer runs out,
 	the planters add to moneyOut so quickly you don't really see the 0.
+-11:30: Going for a break. Yeah, I don't deserve it, but whatever.
+-14:00: Back to it...
+-14:24: To be honest... I think I'm done?
+	>Yeah, the control panel wasn't added, but meh.
+	>Going to record a video or two and take some screenshots.
+	>The report of this is going to be annoying. (Which is an understatement)

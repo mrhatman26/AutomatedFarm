@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
 public class FloatingTextHandler {
-    private static Array<FloatingText> floatingTextArray = floatingTextArray = new Array<FloatingText>();
+    private static Array<FloatingText> floatingTextArray = new Array<FloatingText>();
 
     public static void createNewFloatingText(String textValue, int xPos, int yPos, int r, int g, int b){
         floatingTextArray.add(new FloatingText(textValue, xPos, yPos, r, g, b));
