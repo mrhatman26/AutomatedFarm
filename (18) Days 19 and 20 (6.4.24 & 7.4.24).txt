@@ -1,0 +1,11 @@
+Notes for Days 19 and 20:
+I didn't plan on doing more for this project. But I thought that since it's based around global warming,
+should add some form of climate "simulation".
+Thus far, I have added a new class called "ClimateManager". This "simulates" the months, the seasons
+the external temperature and the internal temperature. The temperatures have no affect right now, but my
+plan is to make the costs of the planters more expensive. I.E: The building costs more to heat. Or I might add
+a heat cost on its own.
+The temperatures are stored in two arrays, "EXTERNAL_TEMPERATURE_TARGETS" and "INTERNAL_TEMPERATURE_TARGETS",
+which have 4 numbers that represent the target temperature for each season. (The actual target is a random within range of these numbers)
+So I also plan to add two more arrays that are "extreme" versions of the normal ones to "simulate" the climate getting worse.
+

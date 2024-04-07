@@ -17,6 +17,7 @@ public class AutoFarm extends ApplicationAdapter {
 	private PlanterManager planterManager;
 	private PlanterPathCreator planterPathCreator;
 	private FloatingTextHandler floatingTextHandler;
+	private ClimateManager climateManager;
 	private BitmapFont font;
 	private static int money, moneyIn, moneyOut, moneyTimer;
 	private static final int MONEY_TIMER_MAX = 1000;
@@ -31,6 +32,7 @@ public class AutoFarm extends ApplicationAdapter {
 		this.planterManager = new PlanterManager(planterPathCreator);
 		this.plantHandler = new PlantHandler();
 		this.floatingTextHandler = new FloatingTextHandler();
+		this.climateManager = new ClimateManager();
 		money = 1000;
 		moneyIn = 0;
 		moneyOut = 0;
@@ -63,6 +65,7 @@ public class AutoFarm extends ApplicationAdapter {
 		planterPathCreator.updateAllPlanterPaths(batch, font);
 		plantHandler.updateAllPlants(batch, font);
 		planterManager.updateAllPlanters(batch, planterPathCreator, font, plantHandler);
+		climateManager.update(batch, font);
 		if (debug) {
 			font.draw(batch, "Money: £" + String.valueOf(money) + "\nMoney In: +£" + String.valueOf(moneyIn) + "\nMoney Out: -£" + String.valueOf(moneyOut) + "\nMoney Timer: " + String.valueOf(moneyTimer), 40, 550);
 		}
