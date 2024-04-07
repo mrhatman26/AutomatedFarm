@@ -1,4 +1,6 @@
 Notes for Days 19 and 20:
+Started Day 20 at 10am.
+
 I didn't plan on doing more for this project. But I thought that since it's based around global warming,
 should add some form of climate "simulation".
 Thus far, I have added a new class called "ClimateManager". This "simulates" the months, the seasons
@@ -8,4 +10,14 @@ a heat cost on its own.
 The temperatures are stored in two arrays, "EXTERNAL_TEMPERATURE_TARGETS" and "INTERNAL_TEMPERATURE_TARGETS",
 which have 4 numbers that represent the target temperature for each season. (The actual target is a random within range of these numbers)
 So I also plan to add two more arrays that are "extreme" versions of the normal ones to "simulate" the climate getting worse.
+
+-15:50: Added the extreme climate and the cost of it.
+	>If it gets too hot or too cold, the cost of maintaining the temperature
+	increases.
+	>These costs are deducted when the month changes.
+	>Unlike my plan, the planters aren't affected.
+	>Now, to finish this project, I plan to add a system which triggers the climate to become extreme and,
+	make planting plants actually cost money.
+-16:27: Plants now cost money and I've now added overlays to represent the seasons.
+	>Still need to do the extreme climate trigger thing...
 

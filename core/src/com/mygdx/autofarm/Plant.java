@@ -40,7 +40,10 @@ public class Plant implements disposable{
         this.spriteDead = staticMethods.spriteTest(Gdx.files.internal("sprPlantDead.png"));
         this.spriteFinished = staticMethods.spriteTest(Gdx.files.internal("sprPlantFinished.png"));
         accessCount++;
-        staticMethods.systemMessage("Plant", null, "Plant initiliser has been accessed " + accessCount + " time(s).", true);
+        int plantCost = value / 100;
+        plantCost = plantCost * staticMethods.getRandom(75, 5);
+        AutoFarm.increaseMoneyOut(plantCost);
+        FloatingTextHandler.createNewFloatingText("£" + String.valueOf(plantCost), this.plantRect.x, this.plantRect.y, 255, 0, 0);
     }
 
     public int getPlantX(){

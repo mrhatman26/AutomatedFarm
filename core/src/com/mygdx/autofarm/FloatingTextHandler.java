@@ -16,7 +16,7 @@ public class FloatingTextHandler {
         for (int i = 0; i < floatingTextArray.size; i++){
             tempText = floatingTextArray.get(i);
             tempText.update(spriteBatch, font);
-            if (tempText.getAlpha() < 0.01){
+            if (tempText.getAlpha() < 0.001){
                 floatingTextArray.removeIndex(i);
             }
         }

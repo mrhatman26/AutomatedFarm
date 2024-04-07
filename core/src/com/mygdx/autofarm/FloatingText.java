@@ -1,7 +1,11 @@
 package com.mygdx.autofarm;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.utils.Layout;
+import com.badlogic.gdx.utils.Align;
 
 import java.awt.*;
 
@@ -28,7 +32,7 @@ public class FloatingText {
     public void update(SpriteBatch spriteBatch, BitmapFont font){
         font.setColor(r, g, b, alpha);
         font.draw(spriteBatch, textValue, textPos.x, textPos.y);
-        alpha = alpha - (float)0.01;
+        alpha = alpha - (float)0.005;
         textPos.y++;
         font.setColor(255, 255, 255, 1);
     }
