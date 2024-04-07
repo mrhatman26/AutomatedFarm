@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class AutoFarm extends ApplicationAdapter {
-	public static boolean debug = false;
+	public static boolean debug = true;
 	private static boolean showOverlays;
 	private SpriteBatch batch;
 	private Texture background, overlaySpring, overlaySummer, overLayAutumn, overlayWinter;

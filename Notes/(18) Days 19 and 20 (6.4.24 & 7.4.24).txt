@@ -20,4 +20,10 @@ So I also plan to add two more arrays that are "extreme" versions of the normal 
 	make planting plants actually cost money.
 -16:27: Plants now cost money and I've now added overlays to represent the seasons.
 	>Still need to do the extreme climate trigger thing...
+-17:20: Extreme climate is now a random chance.
+	>It starts with a low chance, but every time it fails to occur, the chance gets higher.
+	>If it does occur, the chance is reset to be low again.
+	>The middle of the screen now states if the climate is normal or not.
+	>If it is not normal, it flashes like a miliatary warning system! :woah:
 
+And that's everything, I will attempt to clean this up while doing my report, but eh, don't count on it.

@@ -14,17 +14,19 @@ public class ClimateManager {
     private final String[] MONTHS = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private final String degreesSymbol = "\u00B0" + "C";
     private String textToDraw;
-    private int month, monthTimer, externalTemperatureCurrent, externalTemperatureTarget, internalTemperatureCurrent, internalTemperatureTarget, temperatureChangeTimer, seasonNo;
+    private int month, monthTimer, externalTemperatureCurrent, externalTemperatureTarget, internalTemperatureCurrent, internalTemperatureTarget, temperatureChangeTimer, seasonNo, extremeClimateChance, extremeClimateWarningTimer;
     private final int MONTH_TIMER_MAX = 1000;
     private final int TEMPERATURE_TIMER_MAX = 50;
     private final int MAXIMUM_UNCOOLED_TEMPERATURE = 20;
     private final int MINIMUM_UNHEATED_TEMPERATURE = 10;
     private final int TEMPERATURE_COST = 100;
+    private final int EXTREME_CLIMATE_CHANCE_MAX = 100;
+    private final int EXTREME_CLIMATE_WARNING_TIMER = 37;
     private final int[] EXTERNAL_TEMPERATURE_TARGETS = new int[]{15, 21, 18, 0}; //First number is spring, second is summer, third is autumn, fourth is winter;
     private final int[] INTERNAL_TEMPERATURE_TARGETS = new int[]{18, 19, 18, 17}; //Ditto to the above comment.
     private final int[] EXTERNAL_TEMPERATURE_TARGETS_EXTREME = new int[]{25, 37, 32, -10};
     private final int[] INTERNAL_TEMPERATURE_TARGETS_EXTREME = new int[]{21, 24, 22, 17};
-    private boolean extremeClimate;
+    private boolean extremeClimate, showExtremeWarning;
     ClimateManager(){
         this.month = 1;
         this.monthTimer = MONTH_TIMER_MAX;
@@ -36,6 +38,9 @@ public class ClimateManager {
         this.temperatureChangeTimer = TEMPERATURE_TIMER_MAX;
         this.textToDraw = "";
         this.extremeClimate = false;
+        this.extremeClimateChance = EXTREME_CLIMATE_CHANCE_MAX;
+        this.extremeClimateWarningTimer = EXTREME_CLIMATE_WARNING_TIMER;
+        this.showExtremeWarning = true;
     }
 
     public int getSeasonNo(){
@@ -113,6 +118,30 @@ public class ClimateManager {
         }
     }
 
+    public void extremeClimateDetection(SpriteBatch batch, BitmapFont font){
+        if (extremeClimate){
+            extremeClimateWarningTimer--;
+            if (extremeClimateWarningTimer < 1) {
+                extremeClimateWarningTimer = EXTREME_CLIMATE_WARNING_TIMER;
+                if (showExtremeWarning){
+                    showExtremeWarning = false;
+                }
+                else{
+                    showExtremeWarning = true;
+                }
+            }
+            if (showExtremeWarning){
+                font.setColor(255, 0, 0, 1);
+                font.draw(batch, "EXTREME CLIMATE DETECTED!", 520, 362);
+            }
+        }
+        else{
+            font.setColor(0, 255, 0, 1);
+            font.draw(batch, "CLIMATE IS NORMAL", 560, 362);
+        }
+        font.setColor(255, 255, 255, 1);
+    }
+
     public void update(SpriteBatch spriteBatch, BitmapFont font, OrthographicCamera camera){
         monthTimer--;
         if (monthTimer < 1){
@@ -123,7 +152,19 @@ public class ClimateManager {
             }
             seasonHandling();
             costCalculation(camera);
+            if (staticMethods.getRandom(extremeClimateChance, 0) < 5){
+                extremeClimate = true;
+                extremeClimateChance = EXTREME_CLIMATE_CHANCE_MAX;
+            }
+            else{
+                extremeClimate = false;
+                extremeClimateChance = extremeClimateChance - staticMethods.getRandom(10, 0);
+                if (extremeClimateChance < 0){
+                    extremeClimateChance = 0;
+                }
+            }
         }
+        extremeClimateDetection(spriteBatch, font);
         temperatureChange();
         //Drawing
         textToDraw = "Month: " + MONTHS[month - 1];
@@ -136,6 +177,7 @@ public class ClimateManager {
             textToDraw = textToDraw + "\nmonthTimer: " + monthTimer;
             textToDraw = textToDraw + "\ntemperatureChangeTimer: " + temperatureChangeTimer;
             textToDraw = textToDraw + "\nextremeClimate: " + String.valueOf(extremeClimate);
+            textToDraw = textToDraw + "\nExtreme Climate Chance: " + String.valueOf(100 - extremeClimateChance) + "% (" + extremeClimateChance + ")";
         }
         font.draw(spriteBatch, textToDraw, 200, 630);
         //40, 550
