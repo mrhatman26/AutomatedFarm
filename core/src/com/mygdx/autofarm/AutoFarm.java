@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class AutoFarm extends ApplicationAdapter {
 	public static boolean debug = false;
+	private static boolean showOverlays;
 	private SpriteBatch batch;
 	private Texture background, overlaySpring, overlaySummer, overLayAutumn, overlayWinter;
 	private OrthographicCamera camera;
@@ -43,6 +44,7 @@ public class AutoFarm extends ApplicationAdapter {
 		this.floatingTextHandler = new FloatingTextHandler();
 		this.climateManager = new ClimateManager();
 		this.shapeRenderer = new ShapeRenderer();
+		showOverlays = true;
 		money = 1000;
 		moneyIn = 0;
 		moneyOut = 0;
@@ -52,6 +54,14 @@ public class AutoFarm extends ApplicationAdapter {
 		fontParameter.size = FONT_SIZE;
 		font = fontGenerator.generateFont(fontParameter);
 		fontGenerator.dispose();
+	}
+
+	public static boolean getShowOverlays(){
+		return showOverlays;
+	}
+
+	public static void setShowOverlays(boolean newBool){
+		showOverlays = newBool;
 	}
 
 	public static void increaseMoneyIn(int addition){
@@ -105,9 +115,11 @@ public class AutoFarm extends ApplicationAdapter {
 			font.draw(batch, "Money: £" + String.valueOf(money) + "\nMoney In: +£" + String.valueOf(moneyIn) + "\nMoney Out: -£" + String.valueOf(moneyOut), 200, 550);
 		}
 		batch.end();
-		batch.begin();
-		drawSeasonOverlay();
-		batch.end();
+		if (showOverlays) {
+			batch.begin();
+			drawSeasonOverlay();
+			batch.end();
+		}
 		camera.update();
 		staticMethods.miscControls();
 	}

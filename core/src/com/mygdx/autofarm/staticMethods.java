@@ -103,6 +103,14 @@ public class staticMethods {
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             System.exit(0);
         }
+        if ((Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) && Gdx.input.isKeyJustPressed(Input.Keys.O)){
+            if (AutoFarm.getShowOverlays()){
+                AutoFarm.setShowOverlays(false);
+            }
+            else{
+                AutoFarm.setShowOverlays(true);
+            }
+        }
     }
 }
 
