@@ -1,6 +1,7 @@
 package com.mygdx.autofarm;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -111,12 +112,22 @@ public class staticMethods {
                     AutoFarm.setShowOverlays(true);
                 }
             }
-            if (Gdx.input.isButtonJustPressed(Input.Keys.D)){
+            if (Gdx.input.isKeyJustPressed(Input.Keys.D)){
                 if (AutoFarm.debug){
-                    AutoFarm.debug = false;
+                    AutoFarm.setDebug(false);
                 }
                 else{
-                    AutoFarm.debug = true;
+                    AutoFarm.setDebug(true);
+                }
+            }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.F)){
+                Boolean fullScreen = Gdx.graphics.isFullscreen();
+                Graphics.DisplayMode currentScreenMode = Gdx.graphics.getDisplayMode();
+                if (fullScreen){
+                    Gdx.graphics.setWindowedMode(1280, 720);
+                }
+                else{
+                    Gdx.graphics.setFullscreenMode(currentScreenMode);
                 }
             }
         }

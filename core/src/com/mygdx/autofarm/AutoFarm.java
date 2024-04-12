@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class AutoFarm extends ApplicationAdapter {
-	public static boolean debug = true;
+	public static boolean debug = false;
 	private static boolean showOverlays;
 	private SpriteBatch batch;
 	private Texture background, overlaySpring, overlaySummer, overLayAutumn, overlayWinter;
@@ -54,6 +54,10 @@ public class AutoFarm extends ApplicationAdapter {
 		fontParameter.size = FONT_SIZE;
 		font = fontGenerator.generateFont(fontParameter);
 		fontGenerator.dispose();
+	}
+
+	public static void setDebug(boolean newBool){
+		debug = newBool;
 	}
 
 	public static boolean getShowOverlays(){
